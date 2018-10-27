@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Project Server and Website" content="">
+    <meta name="Roberto F. Ruzzi" content="">
+    <meta name="GPIO" content="gpio">
+
+    <title>
+        <%=copyRight.name%>
+    </title>
+
+    <!-- TODO automate inject of css/js -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <style>
+        header.jumbotron.my-4 {
+      padding-top: 2em;
+      padding-bottom: 2em;
+    }
+
+    input {
+      width: 5rem;
+    }
+
+    #settings {
+      border: gray 1px solid;
+    }
+
+    span.badge {
+      margin-right: 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    #svgSettings {
+      margin-top: 5rem;
+    }
+
+    div.tooltip {
+      position: absolute;
+      text-align: center;
+      width: 60px;
+      height: 28px;
+      padding: 2px;
+      font: 12px sans-serif;
+      background: lightsteelblue;
+      border: 0px;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .attribs {
+      width: 40%;
+    }
+
+    .menu-scroll {
+      overflow-y: scroll;
+      max-height: 200px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .show {
+      display: inline;
+    }
+
+    #errors {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <%=copyRight.name%>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <% for(var i=0; i<nav.length; i++){%>
+                    <% if (page==nav[i].Text) {%>
+                    <li class="nav-item active">
+                        <% } else { %>
+                    <li class="nav-item">
+                        <%}%>
+                        <a class="nav-link" href="<%=nav[i].Link%>">
+                            <%=nav[i].Text%>
+                        </a>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+        <header class="jumbotron my-4">
+            <h1 class="display-3">Project Website</h1>
+            <h2>GPIO</h2>
+            <span class=""> </span>
+        </header>
+
+        <!-- Page Features -->
+        <h4>General Purpose Input Output (GPIO)</h4>
+
+        <div class="container">
+
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button id="blink-led" class="btn btn-info" type="button">Blink</button>
+                        </span>
+                        <input id="number-of-blinks" type="number" class="form-control" placeholder="Number of blinks">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <button id="seven-segment-one" type="button" class="btn btn-info">1</button>
+                        <button id="seven-segment-two" type="button" class="btn btn-info">2</button>
+                        <button id="seven-segment-three" type="button" class="btn btn-info">3</button>
+                    </div>
+                    <div>
+                        <button id="seven-segment-four" type="button" class="btn btn-info">4</button>
+                        <button id="seven-segment-five" type="button" class="btn btn-info">5</button>
+                        <button id="seven-segment-six" type="button" class="btn btn-info">6</button>
+                    </div>
+                    <div>
+                        <button id="seven-segment-seven" type="button" class="btn btn-info">7</button>
+                        <button id="seven-segment-eight" type="button" class="btn btn-info">8</button>
+                        <button id="seven-segment-nine" type="button" class="btn btn-info">9</button>
+                    </div>
+                    <div>
+                        <button id="seven-segment-blank" type="button" class="btn btn-info">&nbsp;&nbsp;</button>
+                        <button id="seven-segment-zero" type="button" class="btn btn-info">0</button>
+                        <button id="seven-segment-clear" type="button" class="btn btn-info">x</button>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <!-- <button id="piezo-song" type="button" class="btn btn- btn-info">Song</button> -->
+
+                    <div class="dropdown d-inline show attrs songs">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select a Song
+                        </a>
+
+                        <div id="ddSongs" class="dropdown-menu menu-scroll" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">beethovens-fifth</a>
+                            <a class="dropdown-item" href="#">do-re-mi</a>
+                            <a class="dropdown-item" href="#">doorbell</a>
+                            <a class="dropdown-item" href="#">funeral-march-short</a>
+                            <a class="dropdown-item" href="#">jingle-bells-short</a>
+                            <a class="dropdown-item" href="#">jingle-bells</a>
+                            <a class="dropdown-item" href="#">mario-fanfare</a>
+                            <a class="dropdown-item" href="#">mario-intro</a>
+                            <a class="dropdown-item" href="#">never-gonna-give-you-up</a>
+                            <a class="dropdown-item" href="#">nyan-intro</a>
+                            <a class="dropdown-item" href="#">nyan-melody</a>
+                            <a class="dropdown-item" href="#">pew-pew-pew</a>
+                            <a class="dropdown-item" href="#">starwars-theme</a>
+                            <a class="dropdown-item" href="#">tetris-theme</a>
+                            <a class="dropdown-item" href="#"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="errors"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var $errors = $('#errors');
+
+            $('#blink-led').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/Blink',
+                    data: {
+                        repeat: $('#number-of-blinks').val()
+                    }
+                });
+            });
+            $('#piezo-song').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/Song',
+                    data: {
+                        song: 'todo'
+                    }
+                });
+            });
+            $('#seven-segment-clear').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '999'
+                    }
+                });
+            });
+            $('#seven-segment-one').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '1'
+                    }
+                });
+            });
+            $('#seven-segment-two').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '2'
+                    }
+                });
+            });
+            $('#seven-segment-three').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '3'
+                    }
+                });
+            });
+            $('#seven-segment-four').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '4'
+                    }
+                });
+            });
+            $('#seven-segment-five').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '5'
+                    }
+                });
+            });
+            $('#seven-segment-six').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '6'
+                    }
+                });
+            });
+            $('#seven-segment-seven').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '7'
+                    }
+                });
+            });
+            $('#seven-segment-eight').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '8'
+                    }
+                });
+            });
+            $('#seven-segment-nine').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '9'
+                    }
+                });
+            });
+            $('#seven-segment-zero').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/Gpio/SevenSegment',
+                    data: {
+                        display: '0'
+                    }
+                });
+            });
+        </script>
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">
+                    Copyright &copy;
+                    <%=copyRight.name%>
+                    <%=copyRight.year%>
+                    <script>
+                        new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+                    </script>
+                </p>
+            </div>
+        </footer>
+
+        <script>
+            jQuery(document).ready(function ($) {
+
+                //Attrs Drop-down
+                var $ddSongs = $("#ddSongs");
+                var $ddSongsLabel = $(".songs > .dropdown-toggle");
+
+                $ddSongs.on("click", '.dropdown-item', function (e) {
+                    var selectedItem = this.innerHTML;
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'text',
+                        data: {
+                            tune: selectedItem
+                        },
+                        url: 'http://localhost:3000/Gpio/Song',
+                        success: function (resp) {
+
+                        },
+                        error: function (xhr, status, err) {
+                            $errors.text(xhr.responseText);
+                        },
+                        complete: function (xhr, status) {
+                            $ddSongsLabel.text(selectedItem);
+                        }
+                    });
+                });
+
+
+
+            });
+        </script>
+
+</body>
+
+</html>

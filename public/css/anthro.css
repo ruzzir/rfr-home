@@ -1,0 +1,47 @@
+.table {
+    display: table;
+  }
+
+   /* div.table > div:nth-of-type(odd) {
+    background: #e0e0e0;
+  }  */
+
+  .row {
+    display: table-row;
+  }
+
+  .row input {
+    /* float: right; */
+    text-align: right;
+  }
+
+  .row label {
+    padding-right: 5px;
+  }
+
+  .rowHeader {
+    display: table-row;
+    font-weight: bold;
+  }
+
+  .cell {
+    display: table-cell;
+    text-align: right;
+    /* border: solid black 1px; */
+  }
+
+  .cell input {
+      vertical-align: bottom;
+  }
+
+  .cell-middle {
+    padding-left: 5px;
+    text-align: left;    
+    /* border: solid black 1px; */
+  }
+  
+  .cell-last {
+    padding-left: 5px;
+    /* float: left;     */
+    /* border: solid black 1px; */
+  }

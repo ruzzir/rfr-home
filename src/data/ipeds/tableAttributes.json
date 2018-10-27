@@ -1,0 +1,747 @@
+{
+    "tables": [{
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "geo": ["state", "county", "msa", "place", "all"],
+            "university": ["all", "0", "1", "2"]
+        },
+        "table": "ipeds.university_geo"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"]
+        },
+        "table": "pums_1yr.yg"
+    }, {
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"]
+        },
+        "table": "ipeds.grads_yg"
+    }, {
+        "dataset": "Dartmouth Atlas of Health Care",
+        "link": "http://www.dartmouthatlas.org",
+        "org": "Dartmouth College",
+        "supported_levels": {
+            "geo": ["all", "nation", "state", "county"]
+        },
+        "table": "dartmouth.yg_prim_care_access"
+    }, {
+        "dataset": "Dartmouth Atlas of Health Care",
+        "link": "http://www.dartmouthatlas.org",
+        "org": "Dartmouth College",
+        "supported_levels": {
+            "geo": ["all", "nation", "state", "county"]
+        },
+        "table": "dartmouth.yg_reimbursements"
+    }, {
+        "dataset": "County Health Rankings",
+        "link": "http://www.countyhealthrankings.org/",
+        "org": "University of Wisconsin",
+        "supported_levels": {
+            "geo": ["all", "state", "county"]
+        },
+        "table": "chr.yg"
+    }, {
+        "dataset": "County Business Patterns",
+        "link": "http://www.census.gov/econ/cbp/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["all", "nation", "state", "msa", "county"]
+        },
+        "table": "cbp.yg"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_income"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_nativity_age"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_race"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_tenure"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_transport"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_travel_time"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_vehicles"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_poverty"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_property_tax"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_property_value"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_occ": ["0", "1", "2", "3", "4", "all"],
+            "geo": ["nation", "county", "msa", "place", "puma", "all"]
+        },
+        "table": "acs_5yr.yg_num_emp"
+    }, {
+        "dataset": "Kaiser Family Foundation analysis of Centers for Disease Control and Prevention (CDC), National Center for Health Statistics",
+        "link": "https://www.kff.org/other/state-indicator/opioid-overdose-death-rates/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D",
+        "org": "Kaiser Family Foundation State Health Facts",
+        "supported_levels": {
+            "geo": ["all", "nation", "state"],
+            "year": ["all"]
+        },
+        "table": "opiods.drug_overdose_deathrate"
+    }, {
+        "dataset": "Kaiser Family Foundation analysis of Centers for Disease Control and Prevention (CDC), National Center for Health Statistics",
+        "link": "https://www.kff.org/other/state-indicator/opioid-overdose-death-rates/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D",
+        "org": "Kaiser Family Foundation State Health Facts",
+        "supported_levels": {
+            "geo": ["all", "nation", "state"],
+            "year": ["all"]
+        },
+        "table": "opiods.opioid_overdose_deathrate"
+    }, {
+        "dataset": "National Survey on Drug Use and Health",
+        "link": "https://nsduhweb.rti.org/respweb/homepage.cfm",
+        "org": "SAMHSA, Center for Behavioral Health Statistics and Quality",
+        "supported_levels": {
+            "geo": ["all", "nation", "state"],
+            "start_year": ["all"],
+            "year": ["all"]
+        },
+        "table": "opiods.non_medical_use_of_pain_releivers"
+    }, {
+        "dataset": "Official Cohort Default Rates for Schools",
+        "link": "https://www2.ed.gov/offices/OSFAP/defaultmanagement/cdr.html",
+        "org": "Department of Education",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "all"],
+            "year": ["all"]
+        },
+        "table": "ed.yg_defaults"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_nativity_age"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_race"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_property_value"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_property_tax"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_vehicles"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_travel_time"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_transport"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_poverty"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_tenure"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_income"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_occ": ["0", "1", "2", "3", "4", "all"],
+            "geo": ["nation", "county", "msa", "place", "puma", "all"]
+        },
+        "table": "acs_1yr.yg_num_emp"
+    }, {
+        "dataset": "ACS PUMS 5-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "soc": ["0", "1", "2", "3", "all"]
+        },
+        "table": "pums_5yr.ygo"
+    }, {
+        "dataset": "ACS PUMS 5-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "naics": ["0", "1", "2", "all"]
+        },
+        "table": "pums_5yr.ygi"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_ind": ["0", "1", "all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"]
+        },
+        "table": "acs_5yr.ygi_num_emp"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "degree": ["all"],
+            "geo": ["nation", "state", "puma", "all"]
+        },
+        "table": "pums_1yr.ygd"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "race": ["all"]
+        },
+        "table": "pums_1yr.ygr"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "naics": ["0", "1", "2", "all"]
+        },
+        "table": "pums_1yr.ygi"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "soc": ["0", "1", "2", "3", "all"]
+        },
+        "table": "pums_1yr.ygo"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "wage_bin": ["all"]
+        },
+        "table": "pums_1yr.ygw"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "sex": ["all"]
+        },
+        "table": "pums_1yr.ygs"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "cip": ["2", "all"],
+            "geo": ["nation", "state", "puma", "all"]
+        },
+        "table": "pums_1yr.ygc"
+    }, {
+        "dataset": "ACS PUMS 5-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "birthplace": ["all"],
+            "geo": ["nation", "state", "puma", "all"]
+        },
+        "table": "pums_5yr.ygb_v2"
+    }, {
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "sector": ["all"]
+        },
+        "table": "ipeds.tuition_ygs"
+    }, {
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "degree": ["all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"]
+        },
+        "table": "ipeds.grads_ygd"
+    }, {
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "cip": ["2", "4", "6", "all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"]
+        },
+        "table": "ipeds.grads_ygc"
+    }, {
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "university": ["all", "0", "1", "2"]
+        },
+        "table": "ipeds.grads_ygu"
+    }, {
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "sector": ["all"]
+        },
+        "table": "ipeds.grads_ygs"
+    }, {
+        "dataset": "Dartmouth Atlas of Health Care",
+        "link": "http://www.dartmouthatlas.org",
+        "org": "Dartmouth College",
+        "supported_levels": {
+            "cohort": ["all"],
+            "geo": ["all", "nation", "state", "county"]
+        },
+        "table": "dartmouth.ygc_post_discharge"
+    }, {
+        "dataset": "Growth",
+        "link": "http://bls.gov",
+        "org": "Bureau of Labor Statistics",
+        "supported_levels": {
+            "bls_soc": ["all", "0", "1", "2", "3"],
+            "geo": ["all", "nation", "state", "msa"],
+            "soc": ["all", "0", "1", "2", "3"]
+        },
+        "table": "bls.oes_ygo"
+    }, {
+        "dataset": "Growth",
+        "link": "http://bls.gov",
+        "org": "Bureau of Labor Statistics",
+        "supported_levels": {
+            "geo": ["all", "nation", "state", "msa"],
+            "naics": ["all", "0", "1", "2", "3", "4"]
+        },
+        "table": "bls.qcew_ygi"
+    }, {
+        "dataset": "County Business Patterns",
+        "link": "http://www.census.gov/econ/cbp/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["all", "nation", "state", "msa", "county"],
+            "naics": ["all", "0", "1", "2", "3", "4"]
+        },
+        "table": "cbp.ygi"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_conflict"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_income_distribution"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_occ": ["0", "1", "2", "3", "4", "all"],
+            "geo": ["nation", "state", "county", "msa", "place", "puma", "all"]
+        },
+        "table": "acs_5yr.ygo_med_earnings"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"],
+            "language": ["all"]
+        },
+        "table": "acs_5yr.ygl_speakers"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "puma", "place", "tract", "all"]
+        },
+        "table": "acs_5yr.yg_poverty_race"
+    }, {
+        "dataset": "ACS 5-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_occ": ["0", "1", "2", "3", "4", "all"],
+            "geo": ["nation", "county", "msa", "place", "puma", "all"]
+        },
+        "table": "acs_5yr.ygo_num_emp"
+    }, {
+        "dataset": "ACS 3-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_occ": ["0", "1", "2", "3", "4", "all"],
+            "geo": ["nation", "state", "msa", "all"]
+        },
+        "table": "acs_3year.ygo_num_emp"
+    }, {
+        "dataset": "ACS 3-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_ind": ["0", "1", "2", "all"],
+            "geo": ["nation", "state", "msa", "all"]
+        },
+        "table": "acs_3year.ygi_num_emp"
+    }, {
+        "dataset": "ACS 3-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_ind": ["0", "1", "all"],
+            "geo": ["nation", "state", "county", "msa", "place", "puma", "all"]
+        },
+        "table": "acs_3year.ygi_med_earnings"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "age_bucket": ["all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"]
+        },
+        "table": "acs_1yr.yga_health"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "insurance": ["all"]
+        },
+        "table": "acs_1yr.ygi_health"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "sex": ["all"]
+        },
+        "table": "acs_1yr.ygs_health"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "birthplace": ["all"],
+            "geo": ["nation", "state", "puma", "all"]
+        },
+        "table": "pums_1yr.ygb_v2"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"],
+            "language": ["all"]
+        },
+        "table": "acs_1yr.ygl_speakers"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_income_distribution"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_poverty_race"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "msa", "place", "all"]
+        },
+        "table": "acs_1yr.yg_conflict"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_occ": ["0", "1", "2", "3", "4", "all"],
+            "geo": ["nation", "county", "msa", "place", "puma", "all"]
+        },
+        "table": "acs_1yr.ygo_num_emp"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_occ": ["0", "1", "2", "3", "4", "all"],
+            "geo": ["nation", "state", "county", "msa", "place", "puma", "all"]
+        },
+        "table": "acs_1yr.ygo_med_earnings"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "acs_ind": ["0", "1", "all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"]
+        },
+        "table": "acs_1yr.ygi_num_emp"
+    }, {
+        "dataset": "ACS PUMS 5-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "race": ["all"],
+            "soc": ["0", "1", "2", "3", "all"]
+        },
+        "table": "pums_5yr.ygor"
+    }, {
+        "dataset": "ACS PUMS 5-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "sex": ["all"],
+            "soc": ["0", "1", "2", "3", "all"]
+        },
+        "table": "pums_5yr.ygos"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "race": ["all"],
+            "soc": ["0", "1", "2", "3", "all"]
+        },
+        "table": "pums_1yr.ygor"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "sex": ["all"],
+            "soc": ["0", "1", "2", "3", "all"]
+        },
+        "table": "pums_1yr.ygos"
+    }, {
+        "dataset": "NCES IPEDS",
+        "link": "http://nces.ed.gov/ipeds/",
+        "org": "Department of Education",
+        "supported_levels": {
+            "cip": ["2", "4", "6", "all"],
+            "degree": ["all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"]
+        },
+        "table": "ipeds.grads_ygcd"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "age_bucket": ["all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "insurance": ["all"]
+        },
+        "table": "acs_1yr.ygai_health"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "age_bucket": ["all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "sex": ["all"]
+        },
+        "table": "acs_1yr.ygas_health"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "insurance": ["all"],
+            "sex": ["all"]
+        },
+        "table": "acs_1yr.ygis_health"
+    }, {
+        "dataset": "ACS 1-year Estimate",
+        "link": "http://www.census.gov/programs-surveys/acs/",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "age_bucket": ["all"],
+            "geo": ["nation", "state", "county", "place", "msa", "puma", "all"],
+            "insurance": ["all"],
+            "sex": ["all"]
+        },
+        "table": "acs_1yr.ygais_health"
+    }, {
+        "dataset": "ACS PUMS 1-year Estimate",
+        "link": "http://census.gov/programs-surveys/acs/technical-documentation/pums.html",
+        "org": "Census Bureau",
+        "supported_levels": {
+            "geo": ["nation", "state", "puma", "all"],
+            "naics": ["0", "1", "2", "all"],
+            "soc": ["0", "1", "2", "3", "all"]
+        },
+        "table": "pums_1yr.ygio"
+    }]
+}

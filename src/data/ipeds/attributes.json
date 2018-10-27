@@ -1,0 +1,3 @@
+{
+    "data": ["sector", "ipeds_race", "soc", "race", "degree", "bls_soc", "living_arrangement", "pums_degree", "enrollment_status", "acs_race", "carnegie", "sex", "ethnic_code", "bls_naics", "program_length", "acs_occ", "skill", "geo", "insurance", "cohort", "birthplace", "ipeds_expense", "napcs", "language", "naics", "university", "academic_rank", "rate_type", "sctg", "wage_bin", "lstudy", "school_type", "cip", "iocode", "conflict", "acs_ind", "opeid", "ipeds_occ", "pums_race", "income_range"]
+}

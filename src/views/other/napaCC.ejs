@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Project Server and Website" content="">
+    <meta name="Roberto F. Ruzzi" content="">
+    <meta name="NAPA Color Commons" content="napa,color commons,napa-colorcommons,graph">
+
+    <title><%=copyRight.name%> </title>
+
+    <!-- TODO automate inject of css/js -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link href="../../css/heroic-features.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    
+   <style>
+      header.jumbotron.my-4 {
+        padding-top: 2em;
+        padding-bottom: 2em;
+      }
+
+      input {
+        width: 5rem;
+      }
+
+      #settings {
+        border: gray 1px solid;
+      }
+
+      span.badge {
+        margin-right: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      #svgSettings {
+        margin-top: 5rem;
+      }
+
+      /* .container {
+        border: 1px red solid;
+      }
+      .row {
+        border: 1px blue solid;
+      }
+      .row div {
+        border: 1px green solid;
+      } */
+
+      div.tooltip {	
+          position: absolute;			
+          text-align: center;			
+          width: 60px;					
+          height: 28px;					
+          padding: 2px;				
+          font: 12px sans-serif;		
+          background: lightsteelblue;	
+          border: 0px;		
+          border-radius: 8px;			
+          pointer-events: none;			
+      }
+   </style>
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/"><%=copyRight.name%></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">            
+            <% for(var i=0; i<nav.length; i++){%>
+              <% if (page==nav[i].Text) {%>
+                <li class="nav-item active">
+              <% } else { %>      
+                <li class="nav-item">
+              <%}%>  
+                    <a class="nav-link" href="<%=nav[i].Link%>"><%=nav[i].Text%></a>
+                </li>
+            <%}%>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4">
+        <h1 class="display-3">Project Website</h1>
+        <h2>NAPA Color Commons</h2>
+        <span class=""> </span>
+      </header>
+
+      <!-- Page Features -->
+      <h4>Color Commons</h4>
+      <p>An interactive public art exhibit on the Boston Greenway created by
+        <a href="http://www.newamericanpublicart.com/">New American Public Art</a>.
+        <br />Fork of <a href="https://github.com/JasonCRodriguez/napa-colorcommons">napa-colorcommons</a>.</p>  
+      <span id="debug"></span>
+
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6">
+              <svg></svg>
+            </div>
+            <div class="col-lg-6">
+              <div id="userInfo" class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <b>Interactions </b><i>(Click Graph)</i>
+                  </div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-3 font-weight-bold">
+                      Username
+                    </div>
+                    <div class="col-md-9 font-weight-bold">
+                      Colors and Counts
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="usrName" class="col-md-3">
+                      
+                    </div>
+                    <div id="usrColors" class="col-md-9">
+                      
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="svgSettings" class="invisible container-fluid">
+          <div class="row">
+            <div class="col-sm-12">
+              <h3>Settings <i>(ToDo)</i></h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <label for="svgWidth">Width</label>
+              <input type="number" id="svgWidth" value="425" size="4" maxlength="4" />
+            </div>
+            <div class="col-sm-2">
+              <label for="svgHeight">Height</label>
+              <input type="number" id="svgHeight" value="425" size="4" maxlength="4" />
+            </div>
+            <div class="col-sm-8">
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-default">Set</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+            Copyright &copy; 
+            <%=copyRight.name%> <%=copyRight.year%>
+            <script>
+                new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+            </script>
+        </p>
+      </div>
+      <!-- /.container -->
+    </footer>
+    <!-- <svg width="960" height="1100"></svg>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script>
+
+    //var dta = JSON.stringify(ipeds) ;  
+    
+    //d3.json(dta, function(json) {
+    
+      //var data = dta.data.map(function(json){
+      //  return json.data.reduce(function(obj, header, i){
+      //    obj[header] = data[i];
+      //    //console.log('abc: ' + JSON.stringify(obj));
+      //    return obj;
+      //  }, {});
+      //});
+    
+    //});
+    </script> -->
+
+
+
+    <script>
+        $(function () {
+          //$('span#debug').text($('input#svgWidth').val());
+    
+          // d3 logic goodness here
+          var width = parseInt($('input#svgWidth').val()),
+            height = parseInt($('input#svgHeight').val()),
+            radius = (Math.min(width, height) / 2) - 10;
+    
+          var formatNumber = d3.format(',d');
+    
+          var x = d3.scaleLinear()
+            .range([0, 2 * Math.PI]);
+    
+          var y = d3.scaleSqrt()
+            .range([0, radius]);
+    
+          var color = d3.scaleOrdinal(d3.schemeCategory20);
+    
+          var partition = d3.partition();
+    
+          var arc = d3.arc()
+            .startAngle(function (d) {
+              return Math.max(0, Math.min(2 * Math.PI, x(d.x0)));
+            })
+            .endAngle(function (d) {
+              return Math.max(0, Math.min(2 * Math.PI, x(d.x1)));
+            })
+            .innerRadius(function (d) {
+              return Math.max(0, y(d.y0));
+            })
+            .outerRadius(function (d) {
+              return Math.max(0, y(d.y1));
+            });
+    
+          // Define the div for the tooltip
+          var tips = d3.select("body").append("div")	
+              .attr("class", "tooltip")				
+              .style("opacity", 0);
+
+
+          var svg = d3.select('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + width / 2 + ',' + (height / 2) + ')');
+    
+          var popover = d3.select("body").append("div")	
+                          .attr("class", "tooltip")				
+                          .style("opacity", 0);
+    
+          d3.json('../data/napaCCUser.json', function (error, root) {
+            if (error) throw error;
+    
+            root = d3.hierarchy(root);
+            root.sum(function (d) {
+              return d.size;
+            });
+            svg.selectAll('path')
+              .data(partition(root).descendants())
+              .enter().append('path')
+              .attr('d', arc)
+              .style('fill', function (d) {
+                if (d.data.color) {
+                  return d.data.color;
+                } else if (d.children) {
+                  return color(d.data.name);
+                } else {
+                  return color(d.parent.data.name);
+                }
+              })
+              .style('opacity', '0.9')
+              .on('click', click)
+              .on('mouseover', hover)
+              .on('mouseout', hoverout)
+              .append('title')
+              .text(function (d) {
+                //return d.data.name + '\n' + 'count: ' + formatNumber(d.value);
+              });
+          });
+    
+          function click(d) {
+            console.log(d);
+            var username = '',
+                badges = '';
+            if (typeof d.data.children !== "undefined") {
+              if (d.data.name !== 'Users'){
+                username = d.data.name;
+                $.each(d.data.children, function(key,value) {
+                  badges += '<span class="badge"'
+                              + ' style="background-color: ' + value.color + '"'
+                              + ' title="' + value.name + ' / ' + value.color + '"'
+                              + ' >' + value.size + '</span>';
+                });
+              }  
+            } else {
+              if (d.parent.data.name !== 'Users'){
+                username = d.parent.data.name;
+                badges += '<span class="badge"'
+                            + ' style="background-color: ' + d.data.color + '"'
+                            + ' title="' + d.data.name + ' / ' + d.data.color + '"'
+                            + ' >' + d.data.size + ' - ' + d.data.name + ' / ' + d.data.color + ' '
+                            + '</span>';
+              }
+            }
+            
+            $('#usrName').text(username);       
+            $('#usrColors').html(badges);  
+    
+            svg.transition()
+              .duration(750)
+              .tween('scale', function () {
+                var xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
+                  yd = d3.interpolate(y.domain(), [d.y0, 1]),
+                  yr = d3.interpolate(y.range(), [d.y0 ? 20 : 0, radius]);
+                return function (t) {
+                  x.domain(xd(t));
+                  y.domain(yd(t)).range(yr(t));
+                };
+              })
+              .selectAll('path')
+              .attrTween('d', function (d) {
+                return function () {
+                  return arc(d);
+                };
+              });        
+          }
+    
+          function hover(d) {
+            // svg.append('text')
+            //   .attr('x', d.clientX)
+            //   .attr('y', d.clientY)
+            //   .text(d.data.name);
+            // console.log(d);
+            tips.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+
+            if (typeof d.data.children !== "undefined") {
+              if (d.data.name !== 'Users'){
+                  tips.html("Colors selected: " + d.data.count)	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");
+              }  
+            } else {
+              if (d.parent.data.name !== 'Users'){
+                tips.html(d.data.name + "(" + d.data.size + ")")	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");
+              }
+            }
+
+          }
+    
+          function hoverout(d) {
+            svg.select('text')
+              .remove();
+          }
+    
+          d3.select(self.frameElement)
+            .style('height', height + 'px');
+    
+        });
+      </script>    
+  </body>
+</html>

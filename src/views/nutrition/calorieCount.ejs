@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Project Server and Website" content="">
+    <meta name="Roberto F. Ruzzi" content="">
+    <meta name="Calorie Count" content="nutrition,calorie count,exchange">
+
+    <title><%=copyRight.name%> </title>
+
+    <!-- TODO automate inject of css/js -->
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/heroic-features.css" rel="stylesheet">
+    <script src="../../lib/jquery/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/calorieCount.js"></script>
+    
+   <style>
+      header.jumbotron.my-4 {
+        padding-top: 2em;
+        padding-bottom: 2em;
+      }
+
+      /* firefox border fix */
+      /* input {
+        border: 1px rgb(238, 238, 238) inset;
+      } */
+
+      #calcTable {
+        /* margin-left: 2rem; */
+        width: 80%;
+      }
+
+      #noteTable {
+        margin-left: 2rem;
+      }
+
+      #tblTotals {
+        width: 40%;
+      }
+
+      #tblTotals td {
+        padding-right: 5px;
+        text-align: right;        
+      }
+
+      .nbr {
+        max-width: 4em;
+        text-align: right;
+        width: 4em;
+      }
+
+      .table td, .table th {
+        padding: 0px 10px 0px 10px;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      td > input {
+        float: right;
+        text-align: right;    
+      }
+
+      th > label {
+        padding-right: 5px;
+      }
+
+      .table > thead > tr > td {
+        text-align: left;        
+      }
+   </style>
+    
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/"><%=copyRight.name%></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">            
+            <% for(var i=0; i<nav.length; i++){%>
+              <% if (page==nav[i].Text) {%>
+                <li class="nav-item active">
+              <% } else { %>      
+                <li class="nav-item">
+              <%}%>  
+                    <a class="nav-link" href="<%=nav[i].Link%>"><%=nav[i].Text%></a>
+                </li>
+            <%}%>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4">
+        <h1 class="display-3">Project Website</h1>
+        <h2>Calorie Count Tool using Exchanges</h2>
+        <span class="">This is for informational purposes only.</span>
+      </header>
+
+      <!-- Page Features -->
+      <div class="row">
+
+        <table align="center" id="maintable">
+            <tr>
+                <td colspan="12">
+                  <h4>Using diabetic exchanges to count calories.</h4>
+                </td>
+              </tr>
+          <tr>
+            <td>	   
+            <br />
+            <table id="calcTable" class="table table-striped">
+              <!-- <thead>
+              <tr><td colspan="12">Calorie Count Tool using Exchanges</td></tr>
+              </thead> -->
+              <tr>
+              <th>Food Group</th>
+              <th>Breakfast</th>
+              <th>Snack</th>
+              <th>Lunch</th>
+              <th>Snack</th>
+              <th>Dinner</th>
+              <th>Snack</th>
+              <th>Serving(s)</th>
+              <th>CHO<br />(gms)</th>
+              <th>Protein<br />(gms)</th>
+              <th>Fat<br />(gms)</th>
+              <th>Calories</th>
+              </tr>	   
+              <tr>
+              <td class="lbbg">&nbsp;Starch</td>
+              <td><input id="scrStarchServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrStarchServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrStarchServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrStarchServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrStarchServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrStarchServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrStarchServ"></td>
+              <td id="scrStarchCarb"></td>
+              <td id="scrStarchProtein"></td>
+              <td id="scrStarchFat"></td>
+              <td id="scrStarchCals"></td>
+              </tr> 
+              <tr>
+              <td class="lbbg">&nbsp;Fruit</td>
+              <td><input id="scrFruitServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFruitServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFruitServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFruitServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFruitServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFruitServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrFruitServ"></td>
+              <td id="scrFruitCarb"></td>
+              <td id="scrFruitProtein"></td>
+              <td id="scrFruitFat"></td>
+              <td id="scrFruitCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;Skim Milk</td>
+              <td><input id="scrSkimServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrSkimServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrSkimServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrSkimServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrSkimServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrSkimServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrSkimServ"></td>
+              <td id="scrSkimCarb"></td>
+              <td id="scrSkimProtein"></td>
+              <td id="scrSkimFat"></td>
+              <td id="scrSkimCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;1% Milk</td>
+              <td><input id="scrOneMilkServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrOneMilkServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrOneMilkServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrOneMilkServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrOneMilkServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrOneMilkServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrOneMilkServ"></td>
+              <td id="scrOneMilkCarb"></td>
+              <td id="scrOneMilkProtein"></td>
+              <td id="scrOneMilkFat"></td>
+              <td id="scrOneMilkCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;2% Milk</td>
+              <td><input id="scrTwoMilkServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrTwoMilkServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrTwoMilkServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrTwoMilkServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrTwoMilkServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrTwoMilkServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrTwoMilkServ"></td>
+              <td id="scrTwoMilkCarb"></td>
+              <td id="scrTwoMilkProtein"></td>
+              <td id="scrTwoMilkFat"></td>
+              <td id="scrTwoMilkCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;Whole Milk</td>
+              <td><input id="scrWholeServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrWholeServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrWholeServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrWholeServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrWholeServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrWholeServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrWholeServ"></td>
+              <td id="scrWholeCarb"></td>
+              <td id="scrWholeProtein"></td>
+              <td id="scrWholeFat"></td>
+              <td id="scrWholeCals"></td>
+              </tr>   
+              <tr>
+              <td class="lbbg">&nbsp;Vegetables</td>
+              <td><input id="scrVegServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVegServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVegServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVegServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVegServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVegServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrVegServ"></td>
+              <td id="scrVegCarb"></td>
+              <td id="scrVegProtein"></td>
+              <td id="scrVegFat"></td>
+              <td id="scrVegCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;Very Lean Meat</td>
+              <td><input id="scrVLMServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVLMServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVLMServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVLMServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVLMServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrVLMServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrVLMServ"></td>
+              <td id="scrVLMCarb"></td>
+              <td id="scrVLMProtein"></td>
+              <td id="scrVLMFat"></td>
+              <td id="scrVLMCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;Lean Meat</td>
+              <td><input id="scrLMServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrLMServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrLMServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrLMServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrLMServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrLMServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrLMServ"></td>
+              <td id="scrLMCarb"></td>
+              <td id="scrLMProtein"></td>
+              <td id="scrLMFat"></td>
+              <td id="scrLMCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;Medium Fat Meat</td>
+              <td><input id="scrMFMServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrMFMServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrMFMServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrMFMServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrMFMServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrMFMServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrMFMServ"></td>
+              <td id="scrMFMCarb"></td>
+              <td id="scrMFMProtein"></td>
+              <td id="scrMFMFat"></td>
+              <td id="scrMFMCals"></td>
+              </tr>
+              <tr>
+              <td class="lbbg">&nbsp;High Fat Meat</td>
+              <td><input id="scrHFMServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrHFMServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrHFMServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrHFMServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrHFMServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrHFMServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrHFMServ"></td>
+              <td id="scrHFMCarb"></td>
+              <td id="scrHFMProtein"></td>
+              <td id="scrHFMFat"></td>
+              <td id="scrHFMCals"></td>
+              </tr>   
+              <tr>
+              <td class="lbbg">&nbsp;Fat</td>
+              <td><input id="scrFatServBreakfast" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFatServBreakSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFatServLunch" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFatServLunchSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFatServDinner" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td><input id="scrFatServDinnerSnack" class="nbr" value=""  type="number" min="0" max="99" onblur="computeExchange()" /></td>
+              <td id="scrFatServ"></td>
+              <td id="scrFatCarb"></td>
+              <td id="scrFatProtein"></td>
+              <td id="scrFatFat"></td>
+              <td id="scrFatCals"></td>
+              </tr>  
+              <tr>
+              <td class="lbbg">&nbsp;<i>Totals</i></td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td class="bgYellow" id="scrTotCarb"></td>
+              <td class="bgYellow" id="scrTotProtein"></td>
+              <td class="bgYellow" id="scrTotFat"></td>
+              <td class="bgYellow" id="scrTotCals"></td>
+              </tr>   
+              <tr>
+              <td class="lbbg">&nbsp;<i>Percent Calories</i></td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td id="scrPerCarb"></td>
+              <td id="scrPerProtein"></td>
+              <td id="scrPerFat"></td>
+              <td id="scrPerCals"></td>
+              </tr>    
+             </table>
+            <br />
+            <a onclick="addRowToTable()"><span class="printHide" style="color:blue;text-decoration:underline;cursor:pointer">Save this Day</span></a>&nbsp;&nbsp;&nbsp;<a onclick="clearScr()"><span class="printHide" style="color:blue;text-decoration:underline;cursor:pointer">Clear</span></a>
+            <br /><br />
+            <table border="1" id="tblTotals"  style="border-collapse: collapse;">
+              <tr>
+                <td>Day</td>
+                <td>CHO</td>
+                <td>Protein</td>
+                <td>Fat</td>
+                <td>Calories</td>
+              </tr>
+            </table>
+            <br />
+            <table> 	   
+             <tr>
+             <td>Notes:</td>
+             <td><textarea id="scrNotes" rows="2" cols="50"></textarea></td>	 
+             </tr>     
+            </table> 
+          </td>
+          </tr>
+          </table>      
+      
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+            Copyright &copy; 
+            <%=copyRight.name%> <%=copyRight.year%>
+            <script>
+                new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+            </script>
+        </p>
+      </div>
+      <!-- /.container -->
+    </footer>
+  </body>
+</html>

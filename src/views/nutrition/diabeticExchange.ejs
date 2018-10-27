@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="Project Server and Website" content="">
+  <meta name="Roberto F. Ruzzi" content="">
+  <meta name="Diabetic Exchange Calculator" content="nutrition,nutritional,diabetic exchange,anthropometrics,body measurements,weight,harris-benedict">
+
+  <title>
+    <%=copyRight.name%>
+  </title>
+
+  <!-- TODO automate inject of css/js -->
+  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/heroic-features.css" rel="stylesheet">
+  <script src="../../lib/jquery/jquery.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/formChek.js"></script>
+  <script src="../../js/nutrition.js"></script>
+  <script src="../../js/exchange.js"></script>
+
+  <style type="text/css">
+    header.jumbotron.my-4 {
+      padding-top: 2em;
+      padding-bottom: 2em;
+    }
+
+    .cell {
+      display: table-cell;
+      vertical-align: top;
+      text-align: right;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .cell input {
+      /* max-width: 3em;
+      width: 3em; */
+    }
+
+    /* .table {
+          display: table;
+          border-collapse: separate; 
+          border-spacing: 2px; 
+      } */
+
+    #calcTable {
+      margin-left: 2rem;
+      width: 80%;
+    }
+
+    #noteTable {
+      margin-left: 2rem;
+    }
+
+    .nbr {
+      max-width: 4em;
+      text-align: right;
+      width: 4em;
+    }
+
+    .table td,
+    .table th {
+      padding: 0px 15px 0px 15px;
+      text-align: right;
+    }
+
+    th>input {
+      float: right;
+      text-align: right;
+    }
+
+    th>label {
+      padding-right: 5px;
+    }
+
+    #calcTable .tblHead {
+      text-align: center;
+    }
+
+    /* div.table > div:nth-of-type(odd) {
+        background: #e0e0e0;
+      } */
+
+    /* .row {
+          display: table-row;
+      } */
+
+    /* .row:nth-of-type(odd) {
+        margin-bottom: 6px;
+        border-bottom: 1px solid gray;
+      } */
+
+    /* .row input {
+        float: right;
+        text-align: right;    
+      }
+
+      .row label {
+        padding-right: 5px;
+      }
+
+      .rowHeader {
+          display: table-row;
+          font-weight: bold;
+      } */
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <%=copyRight.name%>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <% for(var i=0; i<nav.length; i++){%>
+            <% if (page==nav[i].Text) {%>
+              <li class="nav-item active">
+                <% } else { %>
+                  <li class="nav-item">
+                    <%}%>
+                      <a class="nav-link" href="<%=nav[i].Link%>">
+                        <%=nav[i].Text%>
+                      </a>
+                  </li>
+                  <%}%>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Project Website</h1>
+      <h2>Diabetic Exchange Calculator</h2>
+      <span class="">This is for informational purposes only.</span>
+    </header>
+
+    <!-- Page Features -->
+    <div class="row">
+
+      <div class="table">
+        <div class="row">
+          <div class="table-responsive">
+            <!-- <div>
+                <div style="font-size:1em;float:right">&nbsp;&nbsp;A Healthly Diet is:
+                  <br />&nbsp;&nbsp;&nbsp;&nbsp; 45% - 65% Carbohydrates
+                  <br />&nbsp;&nbsp;&nbsp;&nbsp; 10% - 20% Protein
+                  <br />&nbsp;&nbsp;&nbsp;&nbsp; 20% - 30% Fat</div>
+                <div>Your Percentages:
+                  <br />
+                  <img style="float:top" id="sImg" src="http://chart.apis.google.com/chart?
+                          chs=300x95
+                          &amp;chd=s:JMD
+                          &amp;cht=p3
+                          &amp;chxt=x
+                          &amp;chxl=0:|Carbohydrate|Fat|Protein" alt="Sample chart" />
+                </div>
+              </div> -->
+            <table id="calcTable" class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="tblHead" colspan="5">
+                    <h5>Diabetic Exhange Calculations</h5>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <!-- <div class="cell">Category</td> -->
+                  <th scope="col">Serving(s)</th>
+                  <th scope="col">Carbohydrate (grams)</th>
+                  <th scope="col">Protein (grams)</th>
+                  <th scope="col">Fat (grams)</th>
+                  <th scope="col">Calories</th>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrStarchServ">Starch</label>
+                    <input class="nbr" id="scrStarchServ" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrStarchCarb"></td>
+                  <td id="scrStarchProtein"></td>
+                  <td id="scrStarchFat"></td>
+                  <td id="scrStarchCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrFruitServ">Fruit</label>
+                    <input id="scrFruitServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrFruitCarb"></td>
+                  <td id="scrFruitProtein"></td>
+                  <td id="scrFruitFat"></td>
+                  <td id="scrFruitCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrSkimServ">Skim Milk</label>
+                    <input id="scrSkimServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrSkimCarb"></td>
+                  <td id="scrSkimProtein"></td>
+                  <td id="scrSkimFat"></td>
+                  <td id="scrSkimCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrOneMilkServ">1% Milk</label>
+                    <input id="scrOneMilkServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrOneMilkCarb"></td>
+                  <td id="scrOneMilkProtein"></td>
+                  <td id="scrOneMilkFat"></td>
+                  <td id="scrOneMilkCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrTwoMilkServ">2% Milk</label>
+                    <input id="scrTwoMilkServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrTwoMilkCarb"></td>
+                  <td id="scrTwoMilkProtein"></td>
+                  <td id="scrTwoMilkFat"></td>
+                  <td id="scrTwoMilkCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrWholeServ">Whole Milk</label>
+                    <input id="scrWholeServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrWholeCarb"></td>
+                  <td id="scrWholeProtein"></td>
+                  <td id="scrWholeFat"></td>
+                  <td id="scrWholeCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrVegServ">Vegetables</label>
+                    <input id="scrVegServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrVegCarb"></td>
+                  <td id="scrVegProtein"></td>
+                  <td id="scrVegFat"></td>
+                  <td id="scrVegCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrVLMServ">Very Lean Meat</label>
+                    <input id="scrVLMServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrVLMCarb"></td>
+                  <td id="scrVLMProtein"></td>
+                  <td id="scrVLMFat"></td>
+                  <td id="scrVLMCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrLMServ">Lean Meat</label>
+                    <input id="scrLMServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrLMCarb"></td>
+                  <td id="scrLMProtein"></td>
+                  <td id="scrLMFat"></td>
+                  <td id="scrLMCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrMFMServ">Medium Fat Meat</label>
+                    <input id="scrMFMServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrMFMCarb"></td>
+                  <td id="scrMFMProtein"></td>
+                  <td id="scrMFMFat"></td>
+                  <td id="scrMFMCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrHFMServ">High Fat Meat</label>
+                    <input id="scrHFMServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrHFMCarb"></td>
+                  <td id="scrHFMProtein"></td>
+                  <td id="scrHFMFat"></td>
+                  <td id="scrHFMCals"></td>
+                </tr>
+                <tr>
+                  <th class="cell">
+                    <label for="scrFatServ">Fat</label>
+                    <input id="scrFatServ" class="nbr" value="" type="number" min="0" max="999" onblur="computeExchange()" />
+                  </th>
+                  <td id="scrFatCarb"></td>
+                  <td id="scrFatProtein"></td>
+                  <td id="scrFatFat"></td>
+                  <td id="scrFatCals"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <i>Totals</i>&nbsp;</td>
+                  <td id="scrTotCarb"></td>
+                  <td id="scrTotProtein"></td>
+                  <td id="scrTotFat"></td>
+                  <td id="scrTotCals"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <i>Your Percent Calories</i>
+                  </td>
+                  <td id="scrPerCarb"></td>
+                  <td id="scrPerProtein"></td>
+                  <td id="scrPerFat"></td>
+                  <td id="scrPerCals"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <i>A Healthly Diet is</i>
+                  </td>
+                  <td>45% - 65%</td>
+                  <td>10% - 20%</td>
+                  <td>20% - 30%</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <div id="noteTable" class="">
+              <div class="">
+                <div class="">
+                  <label for="scrNotes">Notes</label>
+                  <textarea id="scrNotes" rows="2" cols="50"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">
+        Copyright &copy;
+        <%=copyRight.name%>
+          <%=copyRight.year%>
+            <script>
+              new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+            </script>
+      </p>
+    </div>
+    <!-- /.container -->
+  </footer>
+</body>
+
+</html>

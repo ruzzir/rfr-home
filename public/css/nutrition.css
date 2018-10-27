@@ -1,0 +1,113 @@
+/* body {
+	text-align: center;
+	margin-top: 17px;
+	margin-bottom: 15px;
+	background-color: white;
+	width: 100%;
+}
+
+#container	{
+  margin: 1em auto;
+  width: 775px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #676767;
+}
+#mainnav   {
+	background-color: #000099;
+	padding: 2px 0;
+	margin-bottom: 22px;
+}
+#mainnav ul   {
+	margin: 0 0 0 20px;
+	padding: 0;
+	list-style-type: none;
+	border-left: 1px solid #C4C769;
+}
+#mainnav li    {
+	display: inline;
+	padding: 0 10px;
+	border-right: 1px solid #C4C769;
+}
+#mainnav li a   {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+#mainnav li a:hover   {
+	text-decoration: none;
+	color: #fff;
+	background-color: #272900;
+}
+#footer    {
+	clear: both;
+	color: #FFFFFF;
+	background-color: #000099;
+	text-align: right;
+	padding: 5px;
+	font-size: 90%;
+}
+
+#menu	{
+	float: right;
+	width: 145px;
+	border-left: 1px solid #C5C877;
+	padding-left: 15px;
+}
+
+.aRight{
+  text-align:right;
+  white-space:nowrap;  
+}
+
+.btn{
+  height:25px;
+  min-height:25px;
+  max-height:25px;
+  width:82px;
+  min-width:82px;
+  max-width:82px;
+  font-weight:bold;
+  font-family:verdana;
+  background-color:#F5F5F5;  
+  cursor:hand;
+  margin-bottom:-1px; 
+  padding-top:1px;
+}
+.btnAdjust{
+  height:25px;
+  min-height:25px;
+  max-height:25px;
+  font-weight:bold;
+  font-family:verdana;
+  background-color:#F5F5F5;  
+  cursor:hand;
+  margin-bottom:-1px; 
+  padding-top:1px;
+}
+.menu0A{
+  height:25px;
+  min-height:25px;
+  max-height:25px;
+  width:550px;
+  min-width:550px;
+  max-width:550px;
+  font-weight:bold;
+  font-family:verdana;
+  color:#900;
+  background-color:#FFF;  
+  cursor:hand;
+  margin-bottom:-1px; 
+  padding-top:1px;
+  border-style:none;
+  text-align:left;
+}
+
+a.menu00:link {text-decoration:none;color:blue}     
+a.menu00:visited {text-decoration:none;color:blue}  
+a.menu00:hover {text-decoration:underline;color:blue}   
+a.menu00:active {text-decoration:none;color:blue}   
+
+a.menu01:link {text-decoration:none;color:red}    
+a.menu01:visited {text-decoration:none;color:red}  
+a.menu01:hover {text-decoration:underline;color:red}   
+a.menu01:active {text-decoration:none;color:red}    */

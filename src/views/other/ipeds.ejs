@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="Project Server and Website" content="">
+  <meta name="Roberto F. Ruzzi" content="">
+  <meta name="IPEDS" content="ipeds">
+
+  <title>
+    <%=copyRight.name%>
+  </title>
+
+  <!-- TODO automate inject of css/js -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link href="../../css/heroic-features.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+  <style>
+    header.jumbotron.my-4 {
+      padding-top: 2em;
+      padding-bottom: 2em;
+    }
+
+    input {
+      width: 5rem;
+    }
+
+    #settings {
+      border: gray 1px solid;
+    }
+
+    span.badge {
+      margin-right: 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    #svgSettings {
+      margin-top: 5rem;
+    }
+
+    div.tooltip {
+      position: absolute;
+      text-align: center;
+      width: 60px;
+      height: 28px;
+      padding: 2px;
+      font: 12px sans-serif;
+      background: lightsteelblue;
+      border: 0px;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .attribs {
+      width: 40%;
+    }
+
+    .menu-scroll {
+      overflow-y: scroll;
+      max-height: 200px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .show {
+      display: inline;
+    }
+
+    #errors {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <%=copyRight.name%>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <% for(var i=0; i<nav.length; i++){%>
+                    <% if (page==nav[i].Text) {%>
+                    <li class="nav-item active">
+                        <% } else { %>
+                    <li class="nav-item">
+                        <%}%>
+                        <a class="nav-link" href="<%=nav[i].Link%>">
+                            <%=nav[i].Text%>
+                        </a>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+        <header class="jumbotron my-4">
+            <h1 class="display-3">Project Website</h1>
+            <h2>IPEDS</h2>
+            <span class=""> </span>
+        </header>
+
+        <!-- Page Features -->
+        <h4>ToDo</h4>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="dropdown d-inline show attrs">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select an Attribute
+                        </a>
+
+                        <div id="ddAttributes" class="dropdown-menu menu-scroll" aria-labelledby="dropdownMenuLink">
+                            <!-- <a class="dropdown-item" href="#"></a> -->
+                        </div>
+                    </div>
+
+                    <div class="dropdown hide datasets">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select a Dateset Table
+                        </a>
+
+                        <div id="ddAttrsDatasets" class="dropdown-menu menu-scroll" aria-labelledby="dropdownMenuLink">
+                            <!-- <a class="dropdown-item" href="#"></a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <div class="form-group">
+                        <label for="sumlevel">Select Sumlevel (hold shift to select more than one):</label>
+                        <select multiple class="form-control" id="sumlevel">
+                            <!-- <option></option> -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="errors"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">
+                Copyright &copy;
+                <%=copyRight.name%>
+                <%=copyRight.year%>
+                <script>
+                    new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+                </script>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        jQuery(document).ready(function ($) {
+
+            //Attrs Drop-down
+            var $ddAttributes = $("#ddAttributes");
+            var $ddAttrsDatasets = $("#ddAttrsDatasets");
+            var $ddAttrsDatasetLabel = $(".datasets > .dropdown-toggle");
+            var $errors = $('#errors');
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: 'http://localhost:3000/Ipeds/Attrs',
+                success: function (resp) {
+                    $.each(resp.data, function (index, value) {
+                        $ddAttributes.append($("<a class=\"dropdown-item\" href=\"#\" />").text(
+                            value));
+                    });
+                },
+                error: function (req, status, err) {
+                    $errors.text(xhr.responseText);
+                }
+            });
+
+            //Dataset Tables associated to Attrs
+            $ddAttributes.on("click", '.dropdown-item', function (e) {
+                var selectedItem = this.innerHTML;
+                var $ddAttributesLabel = $(".attrs > .dropdown-toggle");
+                $ddAttributesLabel.text('Loading...');
+                $ddAttrsDatasetLabel.text('Select a Dataset Table');
+                $ddAttrsDatasets.empty();
+                $errors.empty();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        attrs: selectedItem
+                    },
+                    url: 'http://localhost:3000/Ipeds/AttrsDatasets',
+                    success: function (resp) {
+                        $ddAttributesLabel.text(selectedItem);
+                        $.each(resp.tables, function (index, value) {
+                            $ddAttrsDatasets.append($(
+                                    "<a class=\"dropdown-item\" href=\"#\" />")
+                                .text(value.table));
+                        });
+                        $('.datasets').removeClass('hide').addClass('d-inline');
+                    },
+                    error: function (xhr, status, err) {
+                        $errors.text(xhr.responseText);
+                    }
+                });
+            });
+
+
+            $ddAttrsDatasets.on("click", '.dropdown-item', function (e) {
+                var selectedItem = this.innerHTML;
+                var $datasetTables = $("#dataset-tables");
+                var $dsTable = '';
+                var row = '';
+                var tbleName = '';
+
+                $ddAttrsDatasetLabel.text('Loading...');
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        attrs: selectedItem
+                    },
+                    url: 'http://localhost:3000/Ipeds/AttrsDatasets', // TODO 
+                    success: function (resp) {
+                        var sumlevels = [];
+
+                        $.each(resp.supported_levels, function (index, value) {
+
+                            if ($ddAttributesLabel.text in value) {
+                                alert('found');
+                            }
+
+
+
+
+
+              // if ($.inArray(value.category, categories) === -1) {
+              //   categories.push(value.category);
+              // }
+            });
+          },
+          error: function (xhr, status, err) {
+            $errors.text(xhr.responseText);
+          },
+          complete: function (xhr, status) {
+            $ddAttrsDatasetLabel.text(selectedItem);
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>

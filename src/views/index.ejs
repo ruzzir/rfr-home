@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="Project Server and Website" content="">
+  <meta name="Roberto F. Ruzzi" content="">
+  <meta name="Nutritional Anthropometrics Diabetic Exchange Harris-Benedict" content="">
+
+  <title>
+    <%=copyRight.name%>
+  </title>
+
+  <!-- Bootstrap core CSS -->
+  <!--
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    -->
+  <!-- Custom styles for this template -->
+  <!--
+    <link href="css/heroic-features.css" rel="stylesheet">
+      -->
+
+
+  <!-- TODO automate inject of css/js -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/heroic-features.css" rel="stylesheet">
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+  <style>
+    header.jumbotron.my-4 {
+      padding-top: 2em;
+      padding-bottom: 2em;
+    }
+
+    .project-block {
+      position: relative;
+      width: 100%;
+      /* margin: 0.3em; */
+      padding: 1em;
+      /* background-color: #428bca; */
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    div.nutrition div.project-block {
+      background-color: #428bca;
+    }
+
+    .project-color,
+    div.other div.project-block {
+      background-color: #e94d74;
+      border: 1px solid #e94d74;
+    }
+
+    div.other .btn-primary:hover,
+    div.other .btn-primary:focus,
+    div.other .btn-primary:active,
+    div.other .btn-primary.active {
+      color: #fff;
+      background-color: #b9161e;
+      border-color: #b9161e;
+      /*set the color you want here*/
+    }
+
+    i.fa-calculator {
+      margin-left: -0.4em;
+      margin-top: 0.1em;
+      font-size: 8em;
+      opacity: 0.1;
+      color: rgba(250, 250, 250, 0.1);
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <%=copyRight.name%>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <% for(var i=0; i<nav.length; i++){%>
+            <% if (page==nav[i].Text) {%>
+              <li class="nav-item active">
+                <% } else { %>
+                  <li class="nav-item"></li>
+                  <%}%>
+                    <a class="nav-link" href="<%=nav[i].Link%>">
+                      <%=nav[i].Text%>
+                    </a>
+              </li>
+              <%}%>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Project Website</h1>
+      <p class="lead">Tinkering around...</p>
+      <!-- <a href="#" class="btn btn-primary btn-lg">n/a</a>  -->
+    </header>
+
+    <!-- 1st row - Nutrition -->
+    <div class="row text-center nutrition">
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <!-- <img class="card-img-top" src="http://placehold.it/500x325" alt=""> -->
+          <div class="project-block">
+            <i class="fas fa-calculator fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Anthropometrics</h4>
+            <p class="card-text">Nutritional Anthropometrics Calculator</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Nutrition/Anthropometrics" class="btn btn-primary">Calculate</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <div class="project-block">
+            <i class="fas fa-calculator fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Exchanges</h4>
+            <p class="card-text">Diabetic Exchange</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Nutrition/DiabeticExchange" class="btn btn-primary">Calculate</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <div class="project-block">
+            <i class="fas fa-calculator fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Harris-Benedict</h4>
+            <p class="card-text">Harris-Benedict Calculator</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Nutrition/HarrisBenedict" class="btn btn-primary">Calculate</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <div class="project-block">
+            <i class="fas fa-calculator fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Calorie Count</h4>
+            <p class="card-text">Calorie Counter</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Nutrition/CalorieCount" class="btn btn-primary">Calculate</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end 1st row -->
+
+    <!-- 2nd row -  -->
+    <div class="row text-center other">
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <div class="project-block">
+            <i class="fas fa-chart-pie fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Color Commons</h4>
+            <p class="card-text">NAPA Color Commons</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Other/NapaCC" class="btn btn-primary project-color">Graph</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <div class="project-block">
+            <i class="fas fa-chart-pie fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">IPEDS</h4>
+            <p class="card-text">IPEDS</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Ipeds" class="btn btn-primary project-color">IPEDS</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <div class="project-block">
+            <i class="fas fa-microchip fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">GPIO</h4>
+            <p class="card-text">GPIO</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Gpio" class="btn btn-primary project-color">GPIO</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <div class="project-block">
+            <i class="fas fa-tachometer-alt fa-5x left-6"></i>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Monitor</h4>
+            <p class="card-text">Monitor</p>
+          </div>
+          <div class="card-footer">
+            <a href="/Monitor" class="btn btn-primary project-color">Monitor</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end 2nd row -->
+
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">
+        Copyright &copy;
+        <%=copyRight.name%>
+          <%=copyRight.year%>
+            <script>
+              new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+            </script>
+      </p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <!--
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      -->
+</body>
+
+</html>
