@@ -21,6 +21,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "helmet": "^3.14.0",
+    "j5-songs": "0.0.9",
     "johnny-five": "^1.0.0",
     "memory-cache": "^0.2.0",
     "pg": "^7.5.0",
@@ -34,7 +35,7 @@
     "gulp-inject": "^4.3.2",
     "gulp-jscs": "^4.1.0",
     "gulp-jshint": "^2.1.0",
-    "gulp-nodemon": "^2.2.1",
+    "gulp-nodemon": "^2.4.1",
     "jshint": "^2.9.6",
     "jshint-stylish": "^2.2.1",
     "wiredep": "^4.0.0"

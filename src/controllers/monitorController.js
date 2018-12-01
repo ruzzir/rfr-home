@@ -7,14 +7,13 @@ var controller = function (service, nav, copyRight) {
     logger.debug('controller = function (service, nav, copyRight)');
 
     var middleware = function (req, res, next) {
-        logger.debug('middleware = function (req, res, next) ' + req.url.replace(/[^a-zA-Z0-9]+/g, ''));
+        logger.debug('middleware = function (req, res, next) ');
 
         next();
     };
 
     var dashboard = function (req, res) {
         logger.debug('monitor = function (req, res)');
-        //res.status(200).send('Not Available by berto');
         res.render('monitor/dashboard', {
             copyRight: copyRight,
             nav: nav,
@@ -25,7 +24,6 @@ var controller = function (service, nav, copyRight) {
 
     var temperature = function (req, res) {
         logger.debug('temperature = function (req, res)');
-        //res.status(200).send('Not available by berto');
         service.getTemperature(req.body, function (err, data) {
             if (err) {
                 res.status(200).send(JSON.stringify(err.error));
@@ -48,12 +46,24 @@ var controller = function (service, nav, copyRight) {
         // });
     };
 
+    var visits = function (req, res) {
+        logger.debug('visits = function (req, res)');
+        service.getVisits(req.body, function (err, data) {
+            if (err) {
+                res.status(200).send(JSON.stringify(err.error));
+            } else {
+                res.status(200).send(JSON.stringify(data.visits));
+            }
+        });
+    };
+
     return {
         dashboard: dashboard,
-        temperature: temperature,
+        middleware: middleware,
         pics: pics,
-        middleware: middleware
+        temperature: temperature,
+        visits: visits
     };
 };
-logger.debug('monitor controller: ' + JSON.stringify(controller));
+
 module.exports = controller;

@@ -22,6 +22,8 @@ var router = function (nav, copyRight) {
           .get(controller.pics);
     routes.route('/Temperature')
           .get(controller.temperature);      
+    routes.route('/Visits')
+          .get(controller.visits);
     routes.route('*')
           .get(controller.dashboard);      
 

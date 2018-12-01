@@ -38,7 +38,7 @@ var service = function () {
     };
 
     var getTemperature = function (req, cb) {
-        logger.debug('getTemperature = function (req, res, next) ' + JSON.stringify(req.body));
+        logger.debug('getTemperature = function (req, cb) ' + JSON.stringify(req.body));
 
         pool.connect(function (err, client, done) {
             if (err){
@@ -48,7 +48,7 @@ var service = function () {
                 //var queryPage = format('SELECT * FROM visits WHERE page = $1::text' );
                 var select = format('SELECT log_timestamp as date, type, subtype, celcius, fahrenheit FROM temperature ORDER BY log_timestamp DESC LIMIT 192');
                 var query = client.query(select, function (err, res) {                                        
-                    client.release();
+                    //client.release();
                     if (err) {
                         logger.error('getTemperature db error: ' + err);                        
                         cb({'error' : 'Not available'}, null);
@@ -57,15 +57,44 @@ var service = function () {
                             results.push(item);
                         });
                         
-                        done();
                         cb(null,{'temps': results});
                     }                    
                 });
             }
+            done(); // ends pool connection
         });
 
         //cb(null,{'one': 'one'});
     };
+
+
+    var getVisits = function (req, cb) {
+        logger.debug('getVisits = function (req, cb) ' + JSON.stringify(req.body));
+
+        pool.connect(function (err, client, done) {
+            if (err){
+                logger.error('getVisits db connection error: ' + err);
+            } else {
+                var results = [];
+                var select = format('SELECT page, count FROM visits ORDER BY count DESC');
+                var query = client.query(select, function (err, res) {                                        
+                    //client.release();
+                    if (err) {
+                        logger.error('getVisits db error: ' + err);                        
+                        cb({'error' : 'Not available'}, null);
+                    } else {
+                        res.rows.forEach(function (item)  {
+                            results.push(item);
+                        });
+                        
+                        cb(null,{'visits': results});
+                    }                    
+                });
+            }
+            done(); // ends pool connection and client(?)
+        });
+    };
+
 
     var getPics = function (res, cb) {
         cb('Monitor pic service not available', {});
@@ -100,7 +129,8 @@ var service = function () {
     };
 
     return {
-        getTemperature: getTemperature
+        getTemperature: getTemperature, 
+        getVisits: getVisits
     };
 };
 

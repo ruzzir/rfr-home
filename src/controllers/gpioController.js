@@ -1,6 +1,7 @@
 /* jslint node:true */
 'use strict';
 var five = require('johnny-five');  //does NOT work in ubuntu, no gpio
+var songs = require('j5-songs');
 //var bodyParser = require('body-parser');
 var logger = require('../common/log.js')(module); // this retrieves default logger which was configured in common/log.js
 logger.debug('init');
@@ -24,7 +25,7 @@ var controller = function (nav, copyRight) {
     };
 
     function blinkLed(numberOfBlinks) {
-        logger.debug('blinkLed: ');
+        logger.debug('blinkLed2: ' + numberOfBlinks);
         var baseTime = 1000; //milliseconds
         var phase = baseTime / 2; //millisecond phase
         var delay = baseTime * numberOfBlinks;
@@ -82,13 +83,11 @@ var controller = function (nav, copyRight) {
 
     var gpio = function (req, res) {
         logger.debug('gpio = function (req, res)');
-        var data1 = {}; //JSON.parse('data.tsv');
         res.render('gpio/gpio', {
             copyRight: copyRight,
             nav: nav,
             page: 'Gpio',
             gpio: {},
-            data: data1
         });
     };
     
@@ -104,12 +103,12 @@ var controller = function (nav, copyRight) {
         res.status(200).send('SevenSegment');
     };
     
-    function numberOfBlinks(numberOfBlinks) {
-        logger.debug('blinkLed: ' + numberOfBlinks);
+    function numberOfBlinks(repeat) {
+        logger.debug('blinkLed: ' + repeat);
         
         var baseTime = 1000; //milliseconds
         var phase = baseTime / 2; //millisecond phase  
-        var delay = baseTime * numberOfBlinks;
+        var delay = baseTime * repeat;
     
         led.blink(phase);
         setTimeout(function () {

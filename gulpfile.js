@@ -4,10 +4,10 @@
 
 /*jslint node:true */
 'use strict';
-var gulp = require('gulp');             //task manager
-var jshint = require('gulp-jshint');    //style & syntax
-var jscs = require('gulp-jscs');        //style & syntax
-var nodemon = require('gulp-nodemon');  //monitor file changes
+var gulp = require('gulp'); //task manager
+var jshint = require('gulp-jshint'); //style & syntax
+var jscs = require('gulp-jscs'); //style & syntax
+var nodemon = require('gulp-nodemon'); //monitor file changes
 
 var jsfiles = ['*.js', 'src/**/*.js'];
 
@@ -67,18 +67,19 @@ gulp.task('inject', function () {
 // });
 
 // gulp 4.0 version
-gulp.task('serve', gulp.series('style', function () {
+gulp.task('serve', gulp.series('style', function (done) {
     var options = {
         script: 'index.js', //main application file to restart
-        delayTime: 1,       //delay of one second
+        delayTime: 1, //delay of one second
         env: {
             'PORT': 3000
         },
-        watch: jsfiles      //source files to be monitored
+        watch: jsfiles //source files to be monitored
     };
 
-    return nodemon(options)
+    nodemon(options)
         .on('restart', function (ev) {
             console.log('Restarting...');
         });
+    done();  //gulp cb() signals async completion, gulp automatically passes a callback function to your task as its first argument. 
 }));

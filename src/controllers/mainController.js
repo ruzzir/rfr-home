@@ -10,7 +10,7 @@ var mainController = function (nav, copyRight) {
 
     var middleware = function (req, res, next) {
         logger.debug('middleware = function (req, res, next)');
-        var page = req.url.replace(/[^a-zA-Z0-9]+/g, '');
+        var page = req.url.replace(/[^a-zA-Z0-9]+/g, ' ');
         page = page.substring(0, 30);
         /* TODO rfr unblock following for login redirect
         if (!req.user) {
@@ -30,10 +30,9 @@ var mainController = function (nav, copyRight) {
                     } else {
                         logger.debug('SQL results: ' + res.rowCount);
                     }                    
-                });
-                done();
+                });                
             }
-
+            done();  // ends pool connection
         });
 
         next();
