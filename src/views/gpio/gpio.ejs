@@ -189,180 +189,229 @@
             </div>
             <div class="row">&nbsp;</div>
             <div class="row">
+                <div class="col-md-2">
+                    <button id="snapshot" type="button" class="btn btn-info">Snapshot</button>
+                    <img id="loading-gif" src="./images/loading.gif" class="hide" />
+                </div>
+                <div class="col-md-1">&nbsp;</div>
+                <div class="col-md-2">
+                    <label for="snapshot-width">Width</label>
+                    <input id="snapshot-width" value="320" type="number" class="form-control" placeholder="Width" />
+                </div>
+                <div class="col-md-1">&nbsp;</div>
+                <div class="col-md-2">
+                    <label for="snapshot-height">Height</label>
+                    <input id="snapshot-height" value="240" type="number" class="form-control" placeholder="Height" />
+                </div>
+                <div class="col-md-1">&nbsp;</div>
+                <div class="col-md-2">
+                    <label for="snapshot-timeout">Timeout</label>
+                    <input id="snapshot-timeout" value="5000" type="number" class="form-control" placeholder="Timeout" />
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="./images/img.jpg" alt="Snapshot" />
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
                 <div class="col-md-12">
                     <div id="errors"></div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
-            var $errors = $('#errors');
+    <script>
+        var $errors = $('#errors');
 
-            $('#blink-led').click(function () {
+        $('#blink-led').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/Blink',
+                data: {
+                    repeat: $('#number-of-blinks').val()
+                }
+            });
+        });
+        $('#piezo-song').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/Song',
+                data: {
+                    song: 'todo'
+                }
+            });
+        });
+        $('#seven-segment-clear').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '999'
+                }
+            });
+        });
+        $('#seven-segment-one').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '1'
+                }
+            });
+        });
+        $('#seven-segment-two').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '2'
+                }
+            });
+        });
+        $('#seven-segment-three').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '3'
+                }
+            });
+        });
+        $('#seven-segment-four').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '4'
+                }
+            });
+        });
+        $('#seven-segment-five').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '5'
+                }
+            });
+        });
+        $('#seven-segment-six').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '6'
+                }
+            });
+        });
+        $('#seven-segment-seven').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '7'
+                }
+            });
+        });
+        $('#seven-segment-eight').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '8'
+                }
+            });
+        });
+        $('#seven-segment-nine').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '9'
+                }
+            });
+        });
+        $('#seven-segment-zero').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: './Gpio/SevenSegment',
+                data: {
+                    display: '0'
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">
+                Copyright &copy;
+                <%=copyRight.name%>
+                <%=copyRight.year%>
+                <script>
+                    new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+                </script>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        jQuery(document).ready(function ($) {
+
+            $('#snapshot').click(function () {
+                var timeout = $('#snapshot-timeout').val();
+                if (isNaN(timeout)) {
+                    timeout = 1000;
+                }
+                var waitLoading = (timeout * 1) + 1500;
+                $("#loading-gif").removeClass("hide");
+                $("#loading-gif").addClass("show");
+                setTimeout(function () {
+                    $("#loading-gif").removeClass("show");
+                    $("#loading-gif").addClass("hide");
+                }, waitLoading);
                 $.ajax({
                     type: 'POST',
-                    url: './Gpio/Blink',
+                    url: './Gpio/Snapshot',
                     data: {
-                        repeat: $('#number-of-blinks').val()
+                        width: $('#snapshot-width').val(),
+                        height: $('#snapshot-height').val(),
+                        timeout: timeout
                     }
                 });
             });
-            $('#piezo-song').click(function () {
+
+            //Attrs Drop-down
+            var $ddSongs = $("#ddSongs");
+            var $ddSongsLabel = $(".songs > .dropdown-toggle");
+
+            $ddSongs.on("click", '.dropdown-item', function (e) {
+                var selectedItem = this.innerHTML;
                 $.ajax({
                     type: 'POST',
+                    dataType: 'text',
+                    data: {
+                        tune: selectedItem
+                    },
                     url: './Gpio/Song',
-                    data: {
-                        song: 'todo'
-                    }
-                });
-            });
-            $('#seven-segment-clear').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '999'
-                    }
-                });
-            });
-            $('#seven-segment-one').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '1'
-                    }
-                });
-            });
-            $('#seven-segment-two').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '2'
-                    }
-                });
-            });
-            $('#seven-segment-three').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '3'
-                    }
-                });
-            });
-            $('#seven-segment-four').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '4'
-                    }
-                });
-            });
-            $('#seven-segment-five').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '5'
-                    }
-                });
-            });
-            $('#seven-segment-six').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '6'
-                    }
-                });
-            });
-            $('#seven-segment-seven').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '7'
-                    }
-                });
-            });
-            $('#seven-segment-eight').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '8'
-                    }
-                });
-            });
-            $('#seven-segment-nine').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '9'
-                    }
-                });
-            });
-            $('#seven-segment-zero').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '0'
-                    }
-                });
-            });
-        </script>
+                    success: function (resp) {
 
-        <!-- Footer -->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">
-                    Copyright &copy;
-                    <%=copyRight.name%>
-                    <%=copyRight.year%>
-                    <script>
-                        new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
-                    </script>
-                </p>
-            </div>
-        </footer>
-
-        <script>
-            jQuery(document).ready(function ($) {
-
-                //Attrs Drop-down
-                var $ddSongs = $("#ddSongs");
-                var $ddSongsLabel = $(".songs > .dropdown-toggle");
-
-                $ddSongs.on("click", '.dropdown-item', function (e) {
-                    var selectedItem = this.innerHTML;
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'text',
-                        data: {
-                            tune: selectedItem
-                        },
-                        url: 'http://localhost:3000/Gpio/Song',
-                        success: function (resp) {
-
-                        },
-                        error: function (xhr, status, err) {
-                            $errors.text(xhr.responseText);
-                        },
-                        complete: function (xhr, status) {
-                            $ddSongsLabel.text(selectedItem);
-                        }
-                    });
+                    },
+                    error: function (xhr, status, err) {
+                        $errors.text(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $ddSongsLabel.text(selectedItem);
+                    }
                 });
-
-
-
             });
-        </script>
+        });
+    </script>
 
 </body>
 

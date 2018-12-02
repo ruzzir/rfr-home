@@ -18,7 +18,9 @@ var router = function (nav, copyRight) {
     routes.route('/Blink')
           .post(controller.blink);          
     routes.route('/SevenSegment')
-          .post(controller.sevenSegment);      
+          .post(controller.sevenSegment);
+    routes.route('/Snapshot')
+          .post(controller.snapshot);
     routes.route('/Song')
           .post(controller.song);
 

@@ -108,7 +108,12 @@
                     <span></span>
                 </div>
             </div>
-            <div class="row"><div class="col-md-12"><hr><hr></div></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                    <hr>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">Page Visits</div>
@@ -117,265 +122,232 @@
             <div class="row">
                 <div id="visitchart" class="col-md-8">
                 </div>
-            </div>                
+            </div>
             <div class="row">&nbsp;</div>
+        </div>
+    </div>
+    <script>
+        // ** Temperature Chart ** //
+        // set the dimensions and margins of the graph
+        var margin = {
+                top: 20,
+                right: 20,
+                bottom: 40,
+                left: 60
+            },
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
 
-            <script>
-                // ** Temperature Chart ** //
-                // set the dimensions and margins of the graph
-                var margin = {
-                        top: 20,
-                        right: 20,
-                        bottom: 40,
-                        left: 60
-                    },
-                    width = 960 - margin.left - margin.right,
-                    height = 500 - margin.top - margin.bottom;
+        // parse the date / time
+        var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ"); //
 
-                // parse the date / time
-                var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ"); //
+        // var parseTime = d3.timeParse("%H:%M");
+        // var midnight = parseTime("00:00"); // "Mon, 01 Jan 1900 00:00:00 GMT"
 
-                // var parseTime = d3.timeParse("%H:%M");
-                // var midnight = parseTime("00:00"); // "Mon, 01 Jan 1900 00:00:00 GMT"
+        var formatMillisecond = d3.timeFormat(".%L"),
+            formatSecond = d3.timeFormat(":%S"),
+            formatMinute = d3.timeFormat("%I:%M"),
+            formatHour = d3.timeFormat("%I %p"),
+            formatDay = d3.timeFormat("%a %d"),
+            formatWeek = d3.timeFormat("%b %d"),
+            formatMonth = d3.timeFormat("%B"),
+            formatYear = d3.timeFormat("%Y");
 
-                var formatMillisecond = d3.timeFormat(".%L"),
-                    formatSecond = d3.timeFormat(":%S"),
-                    formatMinute = d3.timeFormat("%I:%M"),
-                    formatHour = d3.timeFormat("%I %p"),
-                    formatDay = d3.timeFormat("%a %d"),
-                    formatWeek = d3.timeFormat("%b %d"),
-                    formatMonth = d3.timeFormat("%B"),
-                    formatYear = d3.timeFormat("%Y");
+        function multiFormat(date) {
+            return (d3.timeSecond(date) < date ? formatMillisecond :
+                d3.timeMinute(date) < date ? formatSecond :
+                d3.timeHour(date) < date ? formatMinute :
+                d3.timeDay(date) < date ? formatHour :
+                d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek) :
+                d3.timeYear(date) < date ? formatMonth :
+                formatYear)(date);
+        }
 
-                function multiFormat(date) {
-                    return (d3.timeSecond(date) < date ? formatMillisecond :
-                        d3.timeMinute(date) < date ? formatSecond :
-                        d3.timeHour(date) < date ? formatMinute :
-                        d3.timeDay(date) < date ? formatHour :
-                        d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek) :
-                        d3.timeYear(date) < date ? formatMonth :
-                        formatYear)(date);
-                }
+        // set the ranges
+        var x = d3.scaleTime().range([0, width]);
+        var y = d3.scaleLinear().range([height, 0]);
+        var y2 = d3.scaleLinear().range([height, 0]);
 
-                // set the ranges
-                var x = d3.scaleTime().range([0, width]);
-                var y = d3.scaleLinear().range([height, 0]);
-                var y2 = d3.scaleLinear().range([height, 0]);
+        // define the line
+        var valueline = d3.line()
+            .x(function (d) {
+                return x(d.date);
+            })
+            .y(function (d) {
+                return y(d.close);
+            });
+        // 2nd data line    
+        // var valueline2 = d3.line()
+        //     .x(function(d) { return x(d.date); })
+        //     .y(function(d) { return y2(d.fahrenheit); });    
 
-                // define the line
-                var valueline = d3.line()
-                    .x(function (d) {
-                        return x(d.date);
-                    })
-                    .y(function (d) {
-                        return y(d.close);
-                    });
-                // 2nd data line    
-                // var valueline2 = d3.line()
-                //     .x(function(d) { return x(d.date); })
-                //     .y(function(d) { return y2(d.fahrenheit); });    
+        // append the svg object to the body of the page
+        // appends a 'group' element to 'svg'
+        // moves the 'group' element to the top left margin
+        var svg = d3.select("#tempchart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right + 50)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
 
-                // append the svg object to the body of the page
-                // appends a 'group' element to 'svg'
-                // moves the 'group' element to the top left margin
-                var svg = d3.select("#tempchart")
-                    .append("svg")
-                    .attr("width", width + margin.left + margin.right + 50)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
+        svg.append("text")
+            .attr("class", "title")
+            .attr("dx", ((width - margin.left - margin.right - 50) / 2))
+            .attr("dy", "-5px")
+            // .attr("transform",
+            //         "translate(" + ((width + margin.left - margin.right)/2) + " ," + 
+            //                     (-5) + ")")
+            .text("Equipment Temperature");
 
+        // Get the data
+        d3.json("/Monitor/Temperature")
+            .catch(function (error) {
+                console.log('Temperature issue')
+            })
+            .then(function (data) {
+                // format the data
+                data.forEach(function (d) {
+                    d.date = parseTime(d.date);
+                    d.close = d.celcius; //+d.close;
+                    //d.fahrenheit = d.fahrenheit;
+                });
+
+                // Scale the range of the data
+                x.domain(d3.extent(data, function (d) {
+                    return d.date;
+                }));
+                //x.domain([new Date(2018, 9, 6), new Date(2018, 9, 7)]);
+                //x.domain([midnight, d3.utcDay.offset(midnight, 1)])
+                //x.domain([new Date('2018-09-20T00:03:00'), new Date('2018-09-20T23:06:00')])
+
+                // y.domain([40, d3.max(data, function (d) {
+                //     return d.close + 2;
+                // })]);
+                //y.domain([44, 47]);
+                y.domain(d3.extent(data, function (d) {
+                    return d.close;
+                }));
+
+                // right y-range    
+                y2.domain(d3.extent(data, function (d) {
+                    return (d.fahrenheit);
+                }));
+
+
+                // Add the valueline path.
+                console.log('new data: ' + JSON.stringify(data));
+                svg.append("path")
+                    .data([data])
+                    .attr("class", "line")
+                    .attr("d", valueline);
+                // append second data line
+                // svg.append("path")
+                //     .data([data])
+                //     .attr("class", "line")
+                //     .attr("d", valueline2);
+
+                // Add the X Axis
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%e %b - %I %p")));
+
+                // text label for the x axis
                 svg.append("text")
-                    .attr("class", "title")
-                    .attr("dx", ((width - margin.left - margin.right - 50) / 2))
-                    .attr("dy", "-5px")
-                    // .attr("transform",
-                    //         "translate(" + ((width + margin.left - margin.right)/2) + " ," + 
-                    //                     (-5) + ")")
-                    .text("Equipment Temperature");
+                    .attr("transform",
+                        "translate(" + (width / 2) + " ," +
+                        (height + margin.top + 20) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Date/Time");
 
-                // Get the data
-                d3.json("/Monitor/Temperature")
-                    .catch(function (error) {
-                        console.log('Temperature issue')
-                    })
-                    .then(function (data) {
-                        // format the data
-                        data.forEach(function (d) {
-                            d.date = parseTime(d.date);
-                            d.close = d.celcius; //+d.close;
-                            //d.fahrenheit = d.fahrenheit;
+                // Add the left Y Axis 
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+
+                // text label for the left y axis
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left)
+                    .attr("x", 0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Celcius");
+
+                // Add the right Y Axis 
+                svg.append("g")
+                    .attr("class", "axisRed")
+                    .attr("transform", "translate( " + width + ", 0 )")
+                    .call(d3.axisRight(y2));
+
+                // text label for the right y axis
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", margin.right + width + 20)
+                    .attr("x", 0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Fahrenheit");
+
+            });
+
+        // ** Visits Table Using d3 ** //
+        var columns = ['page', 'count'];
+        d3.json("/Monitor/Visits")
+            .catch(function (error) {
+                console.log('Visits issue')
+            })
+            .then(function (data) {
+                var table = d3.select('#visitchart').append('table')
+                var thead = table.append('thead')
+                var tbody = table.append('tbody');
+
+                // append the header row
+                thead.append('tr')
+                    .selectAll('th')
+                    .data(columns).enter()
+                    .append('th')
+                    .text(function (column) {
+                        return column;
+                    });
+
+                // create a row for each object in the data
+                var rows = tbody.selectAll('tr')
+                    .data(data)
+                    .enter()
+                    .append('tr');
+
+                // create a cell in each row for each column
+                var cells = rows.selectAll('td')
+                    .data(function (row) {
+                        return columns.map(function (column) {
+                            return {
+                                column: column,
+                                value: row[column]
+                            };
                         });
-
-                        // Scale the range of the data
-                        x.domain(d3.extent(data, function (d) {
-                            return d.date;
-                        }));
-                        //x.domain([new Date(2018, 9, 6), new Date(2018, 9, 7)]);
-                        //x.domain([midnight, d3.utcDay.offset(midnight, 1)])
-                        //x.domain([new Date('2018-09-20T00:03:00'), new Date('2018-09-20T23:06:00')])
-
-                        // y.domain([40, d3.max(data, function (d) {
-                        //     return d.close + 2;
-                        // })]);
-                        //y.domain([44, 47]);
-                        y.domain(d3.extent(data, function (d) {
-                            return d.close;
-                        }));
-
-                        // right y-range    
-                        y2.domain(d3.extent(data, function (d) {
-                            return (d.fahrenheit);
-                        }));
-
-
-                        // Add the valueline path.
-                        console.log('new data: ' + JSON.stringify(data));
-                        svg.append("path")
-                            .data([data])
-                            .attr("class", "line")
-                            .attr("d", valueline);
-                        // append second data line
-                        // svg.append("path")
-                        //     .data([data])
-                        //     .attr("class", "line")
-                        //     .attr("d", valueline2);
-
-                        // Add the X Axis
-                        svg.append("g")
-                            .attr("transform", "translate(0," + height + ")")
-                            .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%e %b - %I %p")));
-
-                        // text label for the x axis
-                        svg.append("text")
-                            .attr("transform",
-                                "translate(" + (width / 2) + " ," +
-                                (height + margin.top + 20) + ")")
-                            .style("text-anchor", "middle")
-                            .text("Date/Time");
-
-                        // Add the left Y Axis 
-                        svg.append("g")
-                            .call(d3.axisLeft(y));
-
-                        // text label for the left y axis
-                        svg.append("text")
-                            .attr("transform", "rotate(-90)")
-                            .attr("y", 0 - margin.left)
-                            .attr("x", 0 - (height / 2))
-                            .attr("dy", "1em")
-                            .style("text-anchor", "middle")
-                            .text("Celcius");
-
-                        // Add the right Y Axis 
-                        svg.append("g")
-                            .attr("class", "axisRed")
-                            .attr("transform", "translate( " + width + ", 0 )")
-                            .call(d3.axisRight(y2));
-
-                        // text label for the right y axis
-                        svg.append("text")
-                            .attr("transform", "rotate(-90)")
-                            .attr("y", margin.right + width + 20)
-                            .attr("x", 0 - (height / 2))
-                            .attr("dy", "1em")
-                            .style("text-anchor", "middle")
-                            .text("Fahrenheit");
-
-                    });
-
-                // ** Visits Table Using d3 ** //
-                var columns = ['page', 'count'];
-                d3.json("/Monitor/Visits")
-                    .catch(function (error) {
-                        console.log('Visits issue')
                     })
-                    .then(function (data) {
-                        var table = d3.select('#visitchart').append('table')
-                        var thead = table.append('thead')
-                        var tbody = table.append('tbody');
-
-                        // append the header row
-                        thead.append('tr')
-                            .selectAll('th')
-                            .data(columns).enter()
-                            .append('th')
-                            .text(function (column) {
-                                return column;
-                            });
-
-                        // create a row for each object in the data
-                        var rows = tbody.selectAll('tr')
-                            .data(data)
-                            .enter()
-                            .append('tr');
-
-                        // create a cell in each row for each column
-                        var cells = rows.selectAll('td')
-                            .data(function (row) {
-                                return columns.map(function (column) {
-                                    return {
-                                        column: column,
-                                        value: row[column]
-                                    };
-                                });
-                            })
-                            .enter()
-                            .append('td')
-                            .text(function (d) {
-                                return d.value;
-                            });
+                    .enter()
+                    .append('td')
+                    .text(function (d) {
+                        return d.value;
                     });
+            });
+    </script>
 
-                // d3.data("data.csv", function (error, data) {
-                //     if (error) throw error;
-
-                //     // format the data
-                //     data.forEach(function (d) {
-                //         d.date = parseTime(d.date);
-                //         d.close = +d.close;
-                //     });
-
-                //     // Scale the range of the data
-                //     x.domain(d3.extent(data, function (d) {
-                //         return d.date;
-                //     }));
-                //     y.domain([0, d3.max(data, function (d) {
-                //         return d.close;
-                //     })]);
-
-                //     // Add the valueline path.
-                //     svg.append("path")
-                //         .data([data])
-                //         .attr("class", "line")
-                //         .attr("d", valueline);
-
-                //     // Add the X Axis
-                //     svg.append("g")
-                //         .attr("transform", "translate(0," + height + ")")
-                //         .call(d3.axisBottom(x));
-
-                //     // Add the Y Axis
-                //     svg.append("g")
-                //         .call(d3.axisLeft(y));
-
-                // });
-            </script>
-
-            <!-- Footer -->
-            <footer class="py-5 bg-dark">
-                <div class="container">
-                    <p class="m-0 text-center text-white">
-                        Copyright &copy;
-                        <%=copyRight.name%>
-                        <%=copyRight.year%>
-                        <script>
-                            new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
-                        </script>
-                    </p>
-                </div>
-            </footer>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">
+                Copyright &copy;
+                <%=copyRight.name%>
+                <%=copyRight.year%>
+                <script>
+                    new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
+                </script>
+            </p>
+        </div>
+    </footer>
 
 </body>
 
