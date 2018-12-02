@@ -1,8 +1,8 @@
 /* jslint node:true */
 'use strict';
-var five = require('johnny-five');  //does NOT work in ubuntu, no gpio
-var bodyParser = require('body-parser');
+var five = require('johnny-five'); //does NOT work in ubuntu, no gpio
 var songs = require('j5-songs');
+var childProcess = require('child_process');
 //var bodyParser = require('body-parser');
 var logger = require('../common/log.js')(module); // this retrieves default logger which was configured in common/log.js
 logger.debug('init');
@@ -42,44 +42,10 @@ var controller = function (nav, copyRight) {
 
 
     var song = function (req, res) {
-        logger.debug('Song: ' + JSON.stringify(req.body.song));
+        logger.debug('Song: ' + JSON.stringify(req.body.tune));
 
         var tune = songs.load(req.body.tune);
         piezo.play(tune);
-
-        // Plays a song
-        // piezo.play({
-        //     // song is composed by an array of pairs of notes and beats
-        //     // The first argument is the note (null means "no note")
-        //     // The second argument is the length of time (beat) of the note (or non-note)
-        //     song: [
-        //         ['E5', 1/4],
-        //         [null, 1/4],
-        //         ['E5', 1/4],
-        //         [null, 3/4],
-        //         ['E5', 1/4],
-        //         [null, 3/4],
-        //         ['C5', 1/4],
-        //         [null, 1/4],
-        //         ['E5', 1/4],
-        //         [null, 3/4],
-        //         ['G5', 1/4],
-        //         [null, 7/4],
-        //         ['G4', 1/4],
-        //         [null, 7/4]
-        //     ],
-        //     tempo: 200
-        // });
-
-        // Plays the same song with a string representation
-        // piezo.play({
-        //     // song is composed by a string of notes
-        //     // a default beat is set, and the default octave is used
-        //     // any invalid note is read as "no note"
-        //     song: "C D F D A - A A A A G G G G - - C D F D G - G G G G F F F F - -",
-        //     beats: 1 / 4,
-        //     tempo: 100
-        // });
 
         res.status(200).send('Song');
     };
@@ -157,23 +123,44 @@ var controller = function (nav, copyRight) {
         }
         res.status(200).send('Servo2');
     };
-    
+
     function numberOfBlinks(repeat) {
         logger.debug('blinkLed: ' + repeat);
-        
+
         var baseTime = 1000; //milliseconds
         var phase = baseTime / 2; //millisecond phase  
         var delay = baseTime * repeat;
-    
+
         led.blink(phase);
         setTimeout(function () {
             led.stop().off();
         }, delay);
     }
 
+    var snapshot = function (req, res) {
+        logger.debug('Snapshot: width-' + req.body.width);
+
+        // Run raspistill command to take a photo with the camera module
+        var now = new Date();
+        //var filename = 'data/image/img_' + now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + '.jpg';
+        var filename = 'public/images/img.jpg';
+        var width = req.body.width * 1;
+        var height = req.body.height * 1;
+        var timeout = req.body.timeout * 1;
+        var args = ['-w', req.body.width, '-h', req.body.height, '-t', req.body.timeout, '-o', filename];
+        var spawn = childProcess.spawn('raspistill', args);
+        spawn.on('exit', function (code) {
+            logger.debug('A photo is saved as ' + filename + ' with exit code, ' + code);
+            res.status(200).send('Snapshot');
+        }).on('error', function (code) {
+            logger.debug('Photo error ' + filename + ' with exit code, ' + code);
+            res.status(200).send('Snapshot Error: ' + code);
+        });
+    };
+
     function boardReady() {
         logger.debug('boardReady');
-    
+
         // hardware
         led = new five.Led(6);
         motor = new five.Motor({
@@ -194,12 +181,12 @@ var controller = function (nav, copyRight) {
         //servoPins = [9, 10];
         servo1 = new five.Servo({
             pin: 9,
-            range: [0, 180],
+            range: [10, 170],
             startAt: 90 
         });
         servo2 = new five.Servo({
             pin: 10,
-            range: [0, 180],
+            range: [10, 170],
             startAt: 90 
         });
         
@@ -219,6 +206,7 @@ var controller = function (nav, copyRight) {
         servo1: servo11,
         servo2: servo22,
         sevenSegment: sevenSegment,
+        snapshot: snapshot,
         song: song
     };
 };

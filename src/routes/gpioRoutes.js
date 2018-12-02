@@ -22,7 +22,9 @@ var router = function (nav, copyRight) {
     routes.route('/Servo/Tilt')
           .post(controller.servo2);                      
     routes.route('/SevenSegment')
-          .post(controller.sevenSegment);      
+          .post(controller.sevenSegment);
+    routes.route('/Snapshot')
+          .post(controller.snapshot);
     routes.route('/Song')
           .post(controller.song);
 
