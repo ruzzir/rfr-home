@@ -24,7 +24,7 @@
     "j5-songs": "0.0.9",
     "johnny-five": "^1.0.0",
     "memory-cache": "^0.2.0",
-    "pg": "^7.5.0",
+    "pg": "^7.6.0",
     "pg-format": "^1.0.4",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",

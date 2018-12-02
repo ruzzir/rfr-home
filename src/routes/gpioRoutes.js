@@ -16,7 +16,11 @@ var router = function (nav, copyRight) {
     routes.route('/')
           .get(controller.gpio);
     routes.route('/Blink')
-          .post(controller.blink);          
+          .post(controller.blink);
+    routes.route('/Servo/Pan')
+          .post(controller.servo1);
+    routes.route('/Servo/Tilt')
+          .post(controller.servo2);                      
     routes.route('/SevenSegment')
           .post(controller.sevenSegment);      
     routes.route('/Song')

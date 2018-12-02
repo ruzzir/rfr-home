@@ -4,10 +4,10 @@
 
 /*jslint node:true */
 'use strict';
-var gulp = require('gulp'); //task manager
-var jshint = require('gulp-jshint'); //style & syntax
-var jscs = require('gulp-jscs'); //style & syntax
-var nodemon = require('gulp-nodemon'); //monitor file changes
+var gulp = require('gulp');             //task manager
+var jshint = require('gulp-jshint');    //style & syntax
+var jscs = require('gulp-jscs');        //style & syntax
+var nodemon = require('gulp-nodemon');  //monitor file changes
 
 var jsfiles = ['*.js', 'src/**/*.js'];
 

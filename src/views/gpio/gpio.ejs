@@ -127,7 +127,7 @@
 
             <div class="row">&nbsp;</div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-2">
                     <div class="input-group">
                         <span class="input-group-btn">
                             <button id="blink-led" class="btn btn-info" type="button">Blink</button>
@@ -188,134 +188,69 @@
                 </div>
             </div>
             <div class="row">&nbsp;</div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button id="pan-servo" class="btn btn-info" type="button">Pan</button>
+                        </span>
+                        <select class="form-control" id="pan-angle">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                            <option>60</option>
+                            <option>70</option>
+                            <option>80</option>
+                            <option>90</option>
+                            <option>100</option>
+                            <option>110</option>
+                            <option>120</option>
+                            <option>130</option>
+                            <option>140</option>
+                            <option>150</option>
+                            <option>160</option>
+                            <option>180</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button id="tilt-servo" class="btn btn-info" type="button">Tilt</button>
+                        </span>
+                        <select class="form-control" id="tilt-angle">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                            <option>60</option>
+                            <option>70</option>
+                            <option>80</option>
+                            <option>90</option>
+                            <option>100</option>
+                            <option>110</option>
+                            <option>120</option>
+                            <option>130</option>
+                            <option>140</option>
+                            <option>150</option>
+                            <option>160</option>
+                            <option>180</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">&nbsp;</div>
             <div class="row">
                 <div class="col-md-12">
                     <div id="errors"></div>
                 </div>
             </div>
         </div>
-
-        <script>
-            var $errors = $('#errors');
-
-            $('#blink-led').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/Blink',
-                    data: {
-                        repeat: $('#number-of-blinks').val()
-                    }
-                });
-            });
-            $('#piezo-song').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/Song',
-                    data: {
-                        song: 'todo'
-                    }
-                });
-            });
-            $('#seven-segment-clear').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '999'
-                    }
-                });
-            });
-            $('#seven-segment-one').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '1'
-                    }
-                });
-            });
-            $('#seven-segment-two').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '2'
-                    }
-                });
-            });
-            $('#seven-segment-three').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '3'
-                    }
-                });
-            });
-            $('#seven-segment-four').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '4'
-                    }
-                });
-            });
-            $('#seven-segment-five').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '5'
-                    }
-                });
-            });
-            $('#seven-segment-six').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '6'
-                    }
-                });
-            });
-            $('#seven-segment-seven').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '7'
-                    }
-                });
-            });
-            $('#seven-segment-eight').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '8'
-                    }
-                });
-            });
-            $('#seven-segment-nine').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '9'
-                    }
-                });
-            });
-            $('#seven-segment-zero').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: './Gpio/SevenSegment',
-                    data: {
-                        display: '0'
-                    }
-                });
-            });
-        </script>
 
         <!-- Footer -->
         <footer class="py-5 bg-dark">
@@ -333,6 +268,144 @@
 
         <script>
             jQuery(document).ready(function ($) {
+                var $errors = $('#errors');
+
+                $('#pan-servo').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/Servo/Pan',
+                        data: {
+                            degree: $('#pan-angle').val()
+                        }
+                    });
+                });
+                $('#tilt-servo').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/Servo/Tilt',
+                        data: {
+                            degree: $('#tilt-angle').val()
+                        }
+                    });
+                });
+
+                $('#blink-led').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/Blink',
+                        data: {
+                            repeat: $('#number-of-blinks').val()
+                        }
+                    });
+                });
+                $('#piezo-song').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/Song',
+                        data: {
+                            song: 'todo'
+                        }
+                    });
+                });
+                $('#seven-segment-clear').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '999'
+                        }
+                    });
+                });
+                $('#seven-segment-one').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '1'
+                        }
+                    });
+                });
+                $('#seven-segment-two').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '2'
+                        }
+                    });
+                });
+                $('#seven-segment-three').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '3'
+                        }
+                    });
+                });
+                $('#seven-segment-four').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '4'
+                        }
+                    });
+                });
+                $('#seven-segment-five').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '5'
+                        }
+                    });
+                });
+                $('#seven-segment-six').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '6'
+                        }
+                    });
+                });
+                $('#seven-segment-seven').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '7'
+                        }
+                    });
+                });
+                $('#seven-segment-eight').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '8'
+                        }
+                    });
+                });
+                $('#seven-segment-nine').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '9'
+                        }
+                    });
+                });
+                $('#seven-segment-zero').click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: './Gpio/SevenSegment',
+                        data: {
+                            display: '0'
+                        }
+                    });
+                });
 
                 //Attrs Drop-down
                 var $ddSongs = $("#ddSongs");
@@ -346,7 +419,7 @@
                         data: {
                             tune: selectedItem
                         },
-                        url: 'http://localhost:3000/Gpio/Song',
+                        url: './Gpio/Song',
                         success: function (resp) {
 
                         },
