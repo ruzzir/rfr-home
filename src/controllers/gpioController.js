@@ -7,7 +7,13 @@ var childProcess = require('child_process');
 var logger = require('../common/log.js')(module); // this retrieves default logger which was configured in common/log.js
 logger.debug('init');
 
-var board = new five.Board();
+// Raspberry pi
+// var Raspi = require("raspi-io");
+// var board = new five.Board({
+//   io: new Raspi()
+// });
+
+var board = {}; //new five.Board();   // arduino
 var led, motor, piezo, photoresistor, register, servoPins, servo1, servo2;
 
 var controller = function (nav, copyRight) {
@@ -19,7 +25,7 @@ var controller = function (nav, copyRight) {
         next();
     };
 
-    board.on('ready', boardReady);
+    //board.on('ready', boardReady);
 
     var blink = function (req, res) {
         logger.debug('Blink: ' + JSON.stringify(req.body.repeat));
@@ -162,23 +168,24 @@ var controller = function (nav, copyRight) {
         logger.debug('boardReady');
 
         // hardware
-        led = new five.Led(6);
-        motor = new five.Motor({
-            pin: 5
-        });
-        piezo = new five.Piezo(6);
-        photoresistor = new five.Sensor({
-            pin: 'A2',
-            freq: 250
-        });
+        led = new five.Led(6);  // 'P1-40'
+        // motor = new five.Motor({
+        //     pin: 5
+        // });
+        piezo = new five.Piezo(6);  // 'P1-31'
+        // photoresistor = new five.Sensor({
+        //     pin: 'A2',
+        //     freq: 250
+        // });
         register = new five.ShiftRegister({
             pins: {
-                data: 26,
-                clock: 19,
-                latch: 13,
+                data: 26,   // 'P1-37'
+                clock: 19,  // 'P1-35'
+                latch: 13,  // 'P1-33'
             }
         });
         //servoPins = [9, 10];
+        // ** Need to figure out raspberry pi pin designations 'P1-##'
         servo1 = new five.Servo({
             pin: 9,
             range: [10, 170],
