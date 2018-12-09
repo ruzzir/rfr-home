@@ -273,7 +273,11 @@
                     <div class="input-group camera-controls">
                         <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
                     </div>
-
+                    <div class="input-group camera-controls">
+                        <label class="camera-label" for="snapshot-quality">Rotate</label>
+                        <input id="snapshot-rotate" value="90" min="0" max="359" type="number" class="form-control"
+                            placeholder="Rotate" />
+                    </div>
                     <div class="input-group camera-controls">
                         <label class="camera-label" for="snapshot-width">Width</label>
                         <input id="snapshot-width" value="320" min="10" max="2420" type="number" class="form-control"
@@ -294,23 +298,43 @@
                         <input id="snapshot-sharpness" value="0" min="-100" max="100" type="number" class="form-control"
                             placeholder="Sharpness" />
                     </div>
+                    <div class="input-group camera-controls">
+                        <label class="camera-label" for="snapshot-effect">Effect</label>
+                        <select class="form-control" id="snapshot-effect">
+                            <option>none</option>
+                            <option>negative</option>
+                            <option>solarise</option>
+                            <option>posterise</option>
+                            <option>whiteboard</option>
+                            <option>blackboard</option>
+                            <option>sketch</option>
+                            <option>denoise</option>
+                            <option>emboss</option>
+                            <option>oilpaint</option>
+                            <option>hatch</option>
+                            <option>gpen</option>
+                            <option>pastel</option>
+                            <option>watercolour</option>
+                            <option>film</option>
+                            <option>blur</option>
+                            <option>saturation</option>
+                            <option>colourswap</option>
+                            <option>washedout</option>
+                            <option>colourpoint</option>
+                            <option>colourbalance</option>
+                            <option>cartoon</option>
+                        </select>
+                    </div>
+                    <div class="input-group camera-controls">
+                        <label for="snapshot-timeout">Timeout</label>
+                        <input id="snapshot-timeout" value="5000" type="number" class="form-control" placeholder="Timeout">
+                    </div>
+
                 </div>
                 <div class="" style="float: right">
                     <img src="./images/img.jpg" alt="Snapshot" />
                 </div>
             </div>
-
-            <div class="row">&nbsp;</div>
-            <div class="row">
-
-                <div class="col-md-1">&nbsp;</div>
-                <div class="col-md-2">
-                    <label for="snapshot-timeout">Timeout</label>
-                    <input id="snapshot-timeout" value="5000" type="number" class="form-control" placeholder="Timeout" />
-                </div>
-            </div>
-
-
 
             <div class="row">&nbsp;</div>
             <div class="row">
@@ -495,8 +519,12 @@
                     type: 'POST',
                     url: './Gpio/Snapshot',
                     data: {
+                        rotate: $('#snapshot-rotate').val(),
                         width: $('#snapshot-width').val(),
                         height: $('#snapshot-height').val(),
+                        quality: $('#snapshot-quality').val(),
+                        sharpness: $('#snapshot-sharpness').val(),
+                        effect: $('#snapshot-effect').val(),
                         timeout: timeout
                     }
                 });

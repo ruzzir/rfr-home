@@ -147,7 +147,14 @@ var controller = function (nav, copyRight) {
         var width = req.body.width * 1;
         var height = req.body.height * 1;
         var timeout = req.body.timeout * 1;
-        var args = ['-w', req.body.width, '-h', req.body.height, '-t', req.body.timeout, '-o', filename];
+        var args = ['-w', req.body.width, 
+                    '-h', req.body.height, 
+                    '-rotation', req.body.rotate,
+                    '-imxfx', req.body.effect,
+                    '-quality', req.body.quality,
+                    '-sharpness', req.body.sharpness,
+                    '-t', req.body.timeout, 
+                    '-o', filename];
         var spawn = childProcess.spawn('raspistill', args);
         spawn.on('exit', function (code) {
             logger.debug('A photo is saved as ' + filename + ' with exit code, ' + code);
@@ -182,21 +189,21 @@ var controller = function (nav, copyRight) {
         servo1 = new five.Servo({
             pin: 9,
             range: [10, 170],
-            startAt: 90 
+            startAt: 90
         });
         servo2 = new five.Servo({
             pin: 10,
             range: [10, 170],
-            startAt: 90 
+            startAt: 90
         });
-        
+
         // Inject hardware into the Repl instance's context;
         // allows direct command line access
-        board.repl.inject({
-            led: led,
-            motor: motor,
-            pot: photoresistor
-        });
+        // board.repl.inject({
+        //     led: led,
+        //     motor: motor,
+        //     pot: photoresistor
+        // });
     }
 
     return {
