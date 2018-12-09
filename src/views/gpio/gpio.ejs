@@ -61,6 +61,22 @@
       width: 40%;
     }
 
+    .gpio-group {
+        background-color: lightgrey; 
+        padding: 10px; 
+        margin: 5px;
+    }     
+
+    .camera-controls {
+        float: left;
+        margin: 5px;
+    }
+
+    .camera-label {
+        padding-top: 5px; 
+        padding-right: 5px;
+    }
+
     .menu-scroll {
       overflow-y: scroll;
       max-height: 200px;
@@ -127,71 +143,86 @@
 
             <div class="row">&nbsp;</div>
             <div class="row">
-                <div class="col-md-2">
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button id="blink-led" class="btn btn-info" type="button">Blink</button>
-                        </span>
-                        <input id="number-of-blinks" type="number" class="form-control" placeholder="Number of blinks">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div>
-                        <button id="seven-segment-one" type="button" class="btn btn-info">1</button>
-                        <button id="seven-segment-two" type="button" class="btn btn-info">2</button>
-                        <button id="seven-segment-three" type="button" class="btn btn-info">3</button>
-                    </div>
-                    <div>
-                        <button id="seven-segment-four" type="button" class="btn btn-info">4</button>
-                        <button id="seven-segment-five" type="button" class="btn btn-info">5</button>
-                        <button id="seven-segment-six" type="button" class="btn btn-info">6</button>
-                    </div>
-                    <div>
-                        <button id="seven-segment-seven" type="button" class="btn btn-info">7</button>
-                        <button id="seven-segment-eight" type="button" class="btn btn-info">8</button>
-                        <button id="seven-segment-nine" type="button" class="btn btn-info">9</button>
-                    </div>
-                    <div>
-                        <button id="seven-segment-blank" type="button" class="btn btn-info">&nbsp;&nbsp;</button>
-                        <button id="seven-segment-zero" type="button" class="btn btn-info">0</button>
-                        <button id="seven-segment-clear" type="button" class="btn btn-info">x</button>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <!-- <button id="piezo-song" type="button" class="btn btn- btn-info">Song</button> -->
-
-                    <div class="dropdown d-inline show attrs songs">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select a Song
-                        </a>
-
-                        <div id="ddSongs" class="dropdown-menu menu-scroll" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">beethovens-fifth</a>
-                            <a class="dropdown-item" href="#">do-re-mi</a>
-                            <a class="dropdown-item" href="#">doorbell</a>
-                            <a class="dropdown-item" href="#">funeral-march-short</a>
-                            <a class="dropdown-item" href="#">jingle-bells-short</a>
-                            <a class="dropdown-item" href="#">jingle-bells</a>
-                            <a class="dropdown-item" href="#">mario-fanfare</a>
-                            <a class="dropdown-item" href="#">mario-intro</a>
-                            <a class="dropdown-item" href="#">never-gonna-give-you-up</a>
-                            <a class="dropdown-item" href="#">nyan-intro</a>
-                            <a class="dropdown-item" href="#">nyan-melody</a>
-                            <a class="dropdown-item" href="#">pew-pew-pew</a>
-                            <a class="dropdown-item" href="#">starwars-theme</a>
-                            <a class="dropdown-item" href="#">tetris-theme</a>
-                            <a class="dropdown-item" href="#"></a>
+                <div class="col-md-3 gpio-group">
+                    <fieldset>
+                        <legend>LED</legend>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button id="blink-led" class="btn btn-info" type="button">Blink</button>
+                            </span>
+                            <input id="number-of-blinks" type="number" class="form-control" placeholder="Number of blinks">
                         </div>
-                    </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-2 gpio-group">
+                    <fieldset>
+                        <legend>8-segment light</legend>
+                        <div>
+                            <button id="seven-segment-one" type="button" class="btn btn-info">1</button>
+                            <button id="seven-segment-two" type="button" class="btn btn-info">2</button>
+                            <button id="seven-segment-three" type="button" class="btn btn-info">3</button>
+                        </div>
+                        <div>
+                            <button id="seven-segment-four" type="button" class="btn btn-info">4</button>
+                            <button id="seven-segment-five" type="button" class="btn btn-info">5</button>
+                            <button id="seven-segment-six" type="button" class="btn btn-info">6</button>
+                        </div>
+                        <div>
+                            <button id="seven-segment-seven" type="button" class="btn btn-info">7</button>
+                            <button id="seven-segment-eight" type="button" class="btn btn-info">8</button>
+                            <button id="seven-segment-nine" type="button" class="btn btn-info">9</button>
+                        </div>
+                        <div>
+                            <button id="seven-segment-blank" type="button" class="btn btn-info">&nbsp;&nbsp;</button>
+                            <button id="seven-segment-zero" type="button" class="btn btn-info">0</button>
+                            <button id="seven-segment-clear" type="button" class="btn btn-info">x</button>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-2 gpio-group">
+                    <!-- <button id="piezo-song" type="button" class="btn btn- btn-info">Song</button> -->
+                    <fieldset>
+                        <legend>Piezo</legend>
+                        <div class="dropdown d-inline show attrs songs">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select a Song
+                            </a>
+
+                            <div id="ddSongs" class="dropdown-menu menu-scroll" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">beethovens-fifth</a>
+                                <a class="dropdown-item" href="#">do-re-mi</a>
+                                <a class="dropdown-item" href="#">doorbell</a>
+                                <a class="dropdown-item" href="#">funeral-march-short</a>
+                                <a class="dropdown-item" href="#">jingle-bells-short</a>
+                                <a class="dropdown-item" href="#">jingle-bells</a>
+                                <a class="dropdown-item" href="#">mario-fanfare</a>
+                                <a class="dropdown-item" href="#">mario-intro</a>
+                                <a class="dropdown-item" href="#">never-gonna-give-you-up</a>
+                                <a class="dropdown-item" href="#">nyan-intro</a>
+                                <a class="dropdown-item" href="#">nyan-melody</a>
+                                <a class="dropdown-item" href="#">pew-pew-pew</a>
+                                <a class="dropdown-item" href="#">starwars-theme</a>
+                                <a class="dropdown-item" href="#">tetris-theme</a>
+                                <a class="dropdown-item" href="#"></a>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
             <div class="row">&nbsp;</div>
 
             <div class="row">
-                <div class="col-md-2">
-                    <div class="input-group">
+                <div class="col-md-2 gpio-group">
+                    <div class="col-md-2">
+                        <button id="snapshot" type="button" class="btn btn-info camera-controls">Snapshot</button>
+                        <img id="loading-gif" src="./images/loading.gif" class="hide" />
+                    </div>
+                    <div class="input-group camera-controls">
+                        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+                    </div>
+                    <div class="input-group camera-controls">
                         <span class="input-group-btn">
                             <button id="pan-servo" class="btn btn-info" type="button">Pan</button>
                         </span>
@@ -212,12 +243,10 @@
                             <option>140</option>
                             <option>150</option>
                             <option>160</option>
-                            <option>180</option>
+                            <option>170</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="input-group">
+                    <div class="input-group camera-controls">
                         <span class="input-group-btn">
                             <button id="tilt-servo" class="btn btn-info" type="button">Tilt</button>
                         </span>
@@ -238,40 +267,51 @@
                             <option>140</option>
                             <option>150</option>
                             <option>160</option>
-                            <option>180</option>
+                            <option>170</option>
                         </select>
                     </div>
+                    <div class="input-group camera-controls">
+                        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+                    </div>
+
+                    <div class="input-group camera-controls">
+                        <label class="camera-label" for="snapshot-width">Width</label>
+                        <input id="snapshot-width" value="320" min="10" max="2420" type="number" class="form-control"
+                            placeholder="Width" />
+                    </div>
+                    <div class="input-group camera-controls">
+                        <label class="camera-label" for="snapshot-height">Height</label>
+                        <input id="snapshot-height" value="240" min="10" max="2420" type="number" class="form-control"
+                            placeholder="Height" />
+                    </div>
+                    <div class="input-group camera-controls">
+                        <label class="camera-label" for="snapshot-quality">Quality</label>
+                        <input id="snapshot-quality" value="75" min="0" max="100" type="number" class="form-control"
+                            placeholder="Quality" />
+                    </div>
+                    <div class="input-group camera-controls">
+                        <label class="camera-label" for="snapshot-sharpness">Sharpness</label>
+                        <input id="snapshot-sharpness" value="0" min="-100" max="100" type="number" class="form-control"
+                            placeholder="Sharpness" />
+                    </div>
+                </div>
+                <div class="" style="float: right">
+                    <img src="./images/img.jpg" alt="Snapshot" />
                 </div>
             </div>
 
             <div class="row">&nbsp;</div>
             <div class="row">
-                <div class="col-md-2">
-                    <button id="snapshot" type="button" class="btn btn-info">Snapshot</button>
-                    <img id="loading-gif" src="./images/loading.gif" class="hide" />
-                </div>
-                <div class="col-md-1">&nbsp;</div>
-                <div class="col-md-2">
-                    <label for="snapshot-width">Width</label>
-                    <input id="snapshot-width" value="320" type="number" class="form-control" placeholder="Width" />
-                </div>
-                <div class="col-md-1">&nbsp;</div>
-                <div class="col-md-2">
-                    <label for="snapshot-height">Height</label>
-                    <input id="snapshot-height" value="240" type="number" class="form-control" placeholder="Height" />
-                </div>
+
                 <div class="col-md-1">&nbsp;</div>
                 <div class="col-md-2">
                     <label for="snapshot-timeout">Timeout</label>
                     <input id="snapshot-timeout" value="5000" type="number" class="form-control" placeholder="Timeout" />
                 </div>
             </div>
-            <div class="row">&nbsp;</div>
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="./images/img.jpg" alt="Snapshot" />
-                </div>
-            </div>
+
+
+
             <div class="row">&nbsp;</div>
             <div class="row">
                 <div class="col-md-12">
