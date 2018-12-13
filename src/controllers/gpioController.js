@@ -144,51 +144,54 @@ var controller = function (nav, copyRight) {
     }
 
     var snapshot = function (req, res) {
-        logger.debug('Snapshot: width-' + req.body.width);
+        logger.debug('Snapshot');
 
         // Run raspistill command to take a photo with the camera module
-        var now = new Date();
+        //var now = new Date();
         //var filename = 'data/image/img_' + now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + '.jpg';
-        var filename = 'public/images/img.jpg';
-        var width = req.body.width * 1;
-        var height = req.body.height * 1;
-        var timeout = req.body.timeout * 1;
-        var args = ['-w', req.body.width, 
-                    '-h', req.body.height, 
-                    '-rotation', req.body.rotate,
-                    '-imxfx', req.body.effect,
-                    '-quality', req.body.quality,
-                    '-sharpness', req.body.sharpness,
-                    '-t', req.body.timeout, 
-                    '-o', filename];
-        var spawn = childProcess.spawn('raspistill', args);
-        spawn.on('exit', function (code) {
-            logger.debug('A photo is saved as ' + filename + ' with exit code, ' + code);
-            res.status(200).send('Snapshot');
-        }).on('error', function (code) {
-            logger.debug('Photo error ' + filename + ' with exit code, ' + code);
-            res.status(200).send('Snapshot Error: ' + code);
-        });
+        var passcode = ' ** add security code ** ';
+        if (passcode.localeCompare(req.body.code) === 0) {
+            var filename = 'public/images/img.jpg';
+            var args = ['-w', req.body.width,
+                '-h', req.body.height,
+                '-rot', req.body.rotate,
+                '-ifx', req.body.effect,
+                '-q', req.body.quality,
+                '-sh', req.body.sharpness,
+                '-t', req.body.timeout,
+                '-o', filename
+            ];
+            var spawn = childProcess.spawn('raspistill', args);
+            spawn.on('exit', function (code) {
+                logger.debug('A photo is saved as ' + filename + ' with exit code, ' + code);
+                res.status(200).send('Snapshot');
+            }).on('error', function (code) {
+                logger.debug('Photo error ' + filename + ' with exit code, ' + code);
+                res.status(200).send('Snapshot Error: ' + code);
+            });
+        } else {
+            res.status(200).send('Snapshot Error');
+        }
     };
 
     function boardReady() {
         logger.debug('boardReady');
 
         // hardware
-        led = new five.Led(6);  // 'P1-40'
+        led = new five.Led(6); // 'P1-40'
         // motor = new five.Motor({
         //     pin: 5
         // });
-        piezo = new five.Piezo(6);  // 'P1-31'
+        piezo = new five.Piezo(6); // 'P1-31'
         // photoresistor = new five.Sensor({
         //     pin: 'A2',
         //     freq: 250
         // });
         register = new five.ShiftRegister({
             pins: {
-                data: 26,   // 'P1-37'
-                clock: 19,  // 'P1-35'
-                latch: 13,  // 'P1-33'
+                data: 26, // 'P1-37'
+                clock: 19, // 'P1-35'
+                latch: 13, // 'P1-33'
             }
         });
         //servoPins = [9, 10];

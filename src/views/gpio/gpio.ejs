@@ -215,9 +215,12 @@
 
             <div class="row">
                 <div class="col-md-2 gpio-group">
-                    <div class="col-md-2">
-                        <button id="snapshot" type="button" class="btn btn-info camera-controls">Snapshot</button>
+                    <div class="camera-controls">
+                        <button id="snapshot" type="button" class="btn btn-info">Snapshot</button>
                         <img id="loading-gif" src="./images/loading.gif" class="hide" />
+                    </div>
+                    <div class="input-group camera-controls">
+                        <input id="snapshot-code" value="" class="form-control" placeholder="Code" />
                     </div>
                     <div class="input-group camera-controls">
                         <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
@@ -280,12 +283,12 @@
                     </div>
                     <div class="input-group camera-controls">
                         <label class="camera-label" for="snapshot-width">Width</label>
-                        <input id="snapshot-width" value="320" min="10" max="2420" type="number" class="form-control"
+                        <input id="snapshot-width" value="640" min="10" max="2420" type="number" class="form-control"
                             placeholder="Width" />
                     </div>
                     <div class="input-group camera-controls">
                         <label class="camera-label" for="snapshot-height">Height</label>
-                        <input id="snapshot-height" value="240" min="10" max="2420" type="number" class="form-control"
+                        <input id="snapshot-height" value="480" min="10" max="2420" type="number" class="form-control"
                             placeholder="Height" />
                     </div>
                     <div class="input-group camera-controls">
@@ -519,6 +522,7 @@
                     type: 'POST',
                     url: './Gpio/Snapshot',
                     data: {
+                        code: $('#snapshot-code').val(),
                         rotate: $('#snapshot-rotate').val(),
                         width: $('#snapshot-width').val(),
                         height: $('#snapshot-height').val(),
