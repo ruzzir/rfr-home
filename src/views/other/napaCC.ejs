@@ -172,19 +172,8 @@
     </div>
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-            Copyright &copy; 
-            <%=copyRight.name%> <%=copyRight.year%>
-            <script>
-                new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
-            </script>
-        </p>
-      </div>
-      <!-- /.container -->
-    </footer>
+    <% include ../partials/footer %>
+
     <!-- <svg width="960" height="1100"></svg>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -206,8 +195,7 @@
     //});
     </script> -->
 
-
-
+    
     <script>
         $(function () {
           //$('span#debug').text($('input#svgWidth').val());

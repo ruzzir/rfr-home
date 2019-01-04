@@ -348,6 +348,8 @@
         </div>
     </div>
 
+    <% include ../partials/footer %>
+
     <script>
         var $errors = $('#errors');
 
@@ -488,20 +490,6 @@
             });
         });
     </script>
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">
-                Copyright &copy;
-                <%=copyRight.name%>
-                <%=copyRight.year%>
-                <script>
-                    new Date().getFullYear() > <%=copyRight.year%> && document.write("-" + new Date().getFullYear());
-                </script>
-            </p>
-        </div>
-    </footer>
 
     <script>
         jQuery(document).ready(function ($) {
